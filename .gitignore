@@ -17,6 +17,38 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
+# RAD Studio unnecessary files
+*.~*~
+*.#*
+*.obj
+*.local
+*.cbproj.local
+Debug/
+Release/
+
+
+# Files to ignore when considering what GIT should commit.
+
+# Visual Studio 
+*.suo
+*.user
+*.sln.docstates
+*.obj
+*.pch
+*.tlog
+*.log
+*.scc
+*.exp
+*.ilk
+*.lastbuildstate
+vc100.pdb
+ipch
+*.sdf
+*.opensdf
+*.idb
+*.vcxproj
+*.sln
+
 # =========================
 # Operating System Files
 # =========================

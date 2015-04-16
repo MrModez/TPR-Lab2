@@ -1,0 +1,53 @@
+// ---------------------------------------------------------------------------
+
+#ifndef KRLabH
+#define KRLabH
+// ---------------------------------------------------------------------------
+#include <System.Classes.hpp>
+#include <Vcl.Controls.hpp>
+#include <Vcl.StdCtrls.hpp>
+#include <Vcl.Forms.hpp>
+#include <Vcl.Grids.hpp>
+#include <Vcl.ExtCtrls.hpp>
+#include <Vcl.Samples.Spin.hpp>
+#include <vector>
+#include <Direct2D.hpp>
+#include "KRCrit.h"
+#include "KRCritSys.h"
+#include "KRProfile.h"
+#include "KRProfileSys.h"
+
+// ---------------------------------------------------------------------------
+class TMainForm : public TForm {
+__published: // IDE-managed Components
+
+	TStringGrid *StringGrid;
+	TButton *ShowBut;
+	TPaintBox *PaintBox1;
+	TButton *GraphBut;
+	TSpinEdit *A25Spin;
+	TSpinEdit *A50Spin;
+	TSpinEdit *A75Spin;
+	TSpinEdit *IndexSpin;
+
+	void __fastcall FormCreate(TObject *Sender);
+	void __fastcall ShowButClick(TObject *Sender);
+	void __fastcall GraphButClick(TObject *Sender);
+	void __fastcall PaintBox1Paint(TObject *Sender);
+	void __fastcall A25SpinChange(TObject *Sender);
+
+private: // User declarations
+		;
+
+public: // User declarations
+
+	KRCritSys Crits;
+	KRProfileSys Profiles;
+
+	__fastcall TMainForm(TComponent* Owner);
+};
+
+// ---------------------------------------------------------------------------
+extern PACKAGE TMainForm *MainForm;
+// ---------------------------------------------------------------------------
+#endif
