@@ -54,6 +54,24 @@ void __fastcall TMainForm::FormCreate(TObject *Sender) {
 	Profiles.ChangeBest(0, 60);
 	Profiles.ChangeBest(1, 100);
 	Profiles.ChangeBest(2, 1);
+
+	Profiles.AddSpecial(A_25, KRProfile("0.25", Crits));
+	Profiles.AddSpecial(A_50, KRProfile("0.50", Crits));
+	Profiles.AddSpecial(A_75, KRProfile("0.75", Crits));
+	for (int i = 0; i < Crits.GetSize(); i++) {
+		int Worst = Profiles.GetWorst().GetValue(i);
+		int Best = Profiles.GetBest().GetValue(i);
+		if (Profiles.Crits.GetByIndex(i).dec) {
+			Best = Profiles.GetWorst().GetValue(i);
+			Worst = Profiles.GetBest().GetValue(i);
+		}
+		Profiles.ChangeSpecial(A_25, i, (Worst + (Worst + Best) / 2.0) / 2.0);
+		Profiles.ChangeSpecial(A_50, i, (Worst + Best) / 2.0);
+		Profiles.ChangeSpecial(A_75, i, (Best + (Worst + Best) / 2.0) / 2.0);
+	}
+	// A25Spin->Value = (Worst + (Worst + Best) / 2.0) / 2.0;
+	// A50Spin->Value = (Worst + Best) / 2.0;
+	// A75Spin->Value = (Best + (Worst + Best) / 2.0) / 2.0;
 }
 
 // ---------------------------------------------------------------------------
@@ -73,27 +91,30 @@ void __fastcall TMainForm::ShowButClick(TObject *Sender) {
 			StringGrid->Cells[j + 1][Profiles.GetSize() + 1] = STR(Profiles.GetWorst().GetValue(j));
 		}
 	}
-}
 
-// ---------------------------------------------------------------------------
-void __fastcall TMainForm::GraphButClick(TObject *Sender) {
 	///
-	int i = IndexSpin->Value;
-	int Worst = Profiles.GetWorst().GetValue(i);
-	int Best = Profiles.GetBest().GetValue(i);
-	// DEBUG((int)Profiles.Crits.GetByIndex(i).dec);
-	if (Profiles.Crits.GetByIndex(i).dec) {
-		Best = Profiles.GetWorst().GetValue(i);
-		Worst = Profiles.GetBest().GetValue(i);
+	IndexSpin->MinValue = 0;
+	IndexSpin->MaxValue = Profiles.GetSize() - 1;
+
+	// AStringGrid
+	AStringGrid->RowCount = Profiles.Crits.GetSize() + 1;
+	AStringGrid->ColCount = 2;
+
+	// AStringGrid->Cells[0][0] = "Важн";
+	// AStringGrid->Cells[0][Profiles.GetSize() + 1] = Profiles.GetBest().Name;
+	// AStringGrid->Cells[0][Profiles.GetSize() + 2] = Profiles.GetWorst().Name;
+	for (int j = 0; j < Profiles.Crits.GetSize(); j++) {
+		AStringGrid->Cells[0][j + 1] = Profiles.Crits.GetByIndex(j).Name;
+		// AStringGrid->Cells[j + 1][i + 1] = STR(Profiles.GetByIndex(i).GetValue(j));
+		// StringGrid->Cells[j + 1][Profiles.GetSize() + 2] = STR(Profiles.GetBest().GetValue(j));
+		// AStringGrid->Cells[j + 1][Profiles.GetSize() + 1] = STR(Profiles.GetWorst().GetValue(j));
 	}
-	A25Spin->Value = (Worst + (Worst + Best) / 2.0) / 2.0;
-	A50Spin->Value = (Worst + Best) / 2.0;
-	A75Spin->Value = (Best + (Worst + Best) / 2.0) / 2.0;
-	PaintBox1->Refresh();
+
+	PaintBox1Click(this);
 }
 
 // ---------------------------------------------------------------------------
-void __fastcall TMainForm::PaintBox1Paint(TObject *Sender) {
+void __fastcall TMainForm::PaintBox1Paint(TObject * Sender) {
 	int i = IndexSpin->Value;
 	bool dec = Profiles.Crits.GetByIndex(i).dec;
 	int iBest = Profiles.GetBest().GetValue(i);
@@ -102,9 +123,9 @@ void __fastcall TMainForm::PaintBox1Paint(TObject *Sender) {
 		iBest = Profiles.GetWorst().GetValue(i);
 		iWorst = Profiles.GetBest().GetValue(i);
 	}
-	int iA25 = A25Spin->Value;
-	int iA50 = A50Spin->Value;
-	int iA75 = A75Spin->Value;
+	int iA25 = Profiles.GetSpecial(A_25).GetValue(i);
+	int iA50 = Profiles.GetSpecial(A_50).GetValue(i);
+	int iA75 = Profiles.GetSpecial(A_75).GetValue(i);
 	///
 	TDirect2DCanvas* Canvas;
 	Canvas = new TDirect2DCanvas(PaintBox1->Canvas, PaintBox1->ClientRect);
@@ -202,7 +223,60 @@ void __fastcall TMainForm::PaintBox1Paint(TObject *Sender) {
 }
 
 // ---------------------------------------------------------------------------
-void __fastcall TMainForm::A25SpinChange(TObject *Sender) {
+
+void __fastcall TMainForm::A25SpinChange(TObject * Sender) {
+	int i = IndexSpin->Value;
+	Profiles.ChangeSpecial(A_25, i, A25Spin->Value);
+	PaintBox1->Refresh();
+}
+// ---------------------------------------------------------------------------
+
+void __fastcall TMainForm::A50SpinChange(TObject * Sender) {
+	int i = IndexSpin->Value;
+	Profiles.ChangeSpecial(A_50, i, A50Spin->Value);
+	PaintBox1->Refresh();
+}
+
+// ---------------------------------------------------------------------------
+void __fastcall TMainForm::A75SpinChange(TObject * Sender) {
+	int i = IndexSpin->Value;
+	Profiles.ChangeSpecial(A_75, i, A75Spin->Value);
+	PaintBox1->Refresh();
+}
+
+// ---------------------------------------------------------------------------
+void __fastcall TMainForm::SubButClick(TObject *Sender) {
+	///
+	std::vector<int>Priority;
+	for (int i = 0; i < Profiles.Crits.GetSize(); i++) {
+		for (int j = 0; j < Profiles.Crits.GetSize(); j++) {
+			if (AStringGrid->Cells[1][j + 1] == i) {
+				Priority.push_back(j);
+				break;
+			}
+		}
+	}
+	Profiles.Crits.SetPrority(Priority);
+	// ShowMessage(Profiles.Crits.GetByIndex(Priority[0]).Name);
+	String Str = Profiles.Crits.GetByIndex(Priority[0]).Name;
+	for (int i = 1; i < Profiles.Crits.GetSize(); i++) {
+		Str += " < " + Profiles.Crits.GetByIndex(Priority[i]).Name;
+	}
+	QLabel->Caption = Str;
+}
+
+// ---------------------------------------------------------------------------
+void __fastcall TMainForm::SpinEdit1Change(TObject *Sender) {
+	///
+}
+
+// ---------------------------------------------------------------------------
+void __fastcall TMainForm::PaintBox1Click(TObject *Sender) {
+	int i = IndexSpin->Value;
+	// ShowMessage(Profiles.GetSpecial(A_50).GetValue(i));
+	A25Spin->Value = Profiles.GetSpecial(A_25).GetValue(i);
+	A50Spin->Value = Profiles.GetSpecial(A_50).GetValue(i);
+	A75Spin->Value = Profiles.GetSpecial(A_75).GetValue(i);
 	PaintBox1->Refresh();
 }
 // ---------------------------------------------------------------------------

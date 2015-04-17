@@ -1,11 +1,11 @@
 object MainForm: TMainForm
-  Left = 0
-  Top = 0
+  Left = 420
+  Top = 270
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
   Caption = 'MainForm'
-  ClientHeight = 459
-  ClientWidth = 875
+  ClientHeight = 340
+  ClientWidth = 1043
   Color = clBtnFace
   DoubleBuffered = True
   Font.Charset = DEFAULT_CHARSET
@@ -14,86 +14,159 @@ object MainForm: TMainForm
   Font.Name = 'Segoe UI'
   Font.Style = []
   OldCreateOrder = False
+  Position = poDesktopCenter
   ScreenSnap = True
   OnCreate = FormCreate
   PixelsPerInch = 96
   TextHeight = 21
   object PaintBox1: TPaintBox
     Left = 328
-    Top = 16
+    Top = 8
     Width = 313
-    Height = 265
+    Height = 241
+    OnClick = PaintBox1Click
     OnPaint = PaintBox1Paint
+  end
+  object MLabel1: TLabel
+    Left = 824
+    Top = 48
+    Width = 64
+    Height = 23
+    Caption = 'MLabel1'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -17
+    Font.Name = 'Segoe UI'
+    Font.Style = []
+    ParentFont = False
+  end
+  object MLabel2: TLabel
+    Left = 824
+    Top = 77
+    Width = 64
+    Height = 23
+    Caption = 'MLabel2'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -17
+    Font.Name = 'Segoe UI'
+    Font.Style = []
+    ParentFont = False
+  end
+  object QLabel: TLabel
+    Left = 824
+    Top = 24
+    Width = 64
+    Height = 23
+    Caption = 'MLabel2'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -17
+    Font.Name = 'Segoe UI'
+    Font.Style = []
+    ParentFont = False
   end
   object StringGrid: TStringGrid
     Left = 8
-    Top = 24
-    Width = 281
-    Height = 217
+    Top = 8
+    Width = 297
+    Height = 241
     ColCount = 4
     RowCount = 6
     TabOrder = 0
   end
   object ShowBut: TButton
     Left = 8
-    Top = 247
-    Width = 281
+    Top = 255
+    Width = 297
     Height = 66
     Caption = 'ShowBut'
     TabOrder = 1
     OnClick = ShowButClick
   end
-  object GraphBut: TButton
-    Left = 328
-    Top = 324
-    Width = 217
-    Height = 66
-    Caption = 'Graph'
-    TabOrder = 2
-    OnClick = GraphButClick
-  end
   object A25Spin: TSpinEdit
-    Left = 328
-    Top = 287
+    Left = 424
+    Top = 255
+    Width = 70
+    Height = 31
+    MaxValue = 0
+    MinValue = 0
+    TabOrder = 2
+    Value = 0
+    OnChange = A25SpinChange
+  end
+  object A50Spin: TSpinEdit
+    Left = 497
+    Top = 255
     Width = 70
     Height = 31
     MaxValue = 0
     MinValue = 0
     TabOrder = 3
     Value = 0
-    OnChange = A25SpinChange
+    OnChange = A50SpinChange
   end
-  object A50Spin: TSpinEdit
-    Left = 401
-    Top = 287
+  object A75Spin: TSpinEdit
+    Left = 571
+    Top = 255
     Width = 70
     Height = 31
     MaxValue = 0
     MinValue = 0
     TabOrder = 4
     Value = 0
-    OnChange = A25SpinChange
+    OnChange = A75SpinChange
   end
-  object A75Spin: TSpinEdit
-    Left = 475
-    Top = 287
+  object IndexSpin: TSpinEdit
+    Left = 328
+    Top = 255
     Width = 70
     Height = 31
     MaxValue = 0
     MinValue = 0
     TabOrder = 5
     Value = 0
-    OnChange = A25SpinChange
+    OnChange = PaintBox1Click
   end
-  object IndexSpin: TSpinEdit
-    Left = 571
-    Top = 359
+  object AStringGrid: TStringGrid
+    Left = 656
+    Top = 8
+    Width = 153
+    Height = 241
+    ColCount = 2
+    RowCount = 6
+    Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goRangeSelect, goEditing]
+    TabOrder = 6
+  end
+  object SubBut: TButton
+    Left = 656
+    Top = 255
+    Width = 153
+    Height = 66
+    Caption = 'Submit'
+    TabOrder = 7
+    OnClick = SubButClick
+  end
+  object SpinEdit1: TSpinEdit
+    Left = 824
+    Top = 127
     Width = 70
     Height = 31
     MaxValue = 0
     MinValue = 0
-    TabOrder = 6
+    TabOrder = 8
     Value = 0
-    OnChange = GraphButClick
+    OnChange = SpinEdit1Change
+  end
+  object SpinEdit2: TSpinEdit
+    Left = 900
+    Top = 127
+    Width = 70
+    Height = 31
+    MaxValue = 0
+    MinValue = 0
+    TabOrder = 9
+    Value = 0
+    OnChange = SpinEdit1Change
   end
 end

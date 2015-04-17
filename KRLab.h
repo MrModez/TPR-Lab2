@@ -24,17 +24,30 @@ __published: // IDE-managed Components
 	TStringGrid *StringGrid;
 	TButton *ShowBut;
 	TPaintBox *PaintBox1;
-	TButton *GraphBut;
 	TSpinEdit *A25Spin;
 	TSpinEdit *A50Spin;
 	TSpinEdit *A75Spin;
 	TSpinEdit *IndexSpin;
+	TStringGrid *AStringGrid;
+	TButton *SubBut;
+	TSpinEdit *SpinEdit1;
+	TLabel *MLabel1;
+	TLabel *MLabel2;
+	TSpinEdit *SpinEdit2;
+	TLabel *QLabel;
 
 	void __fastcall FormCreate(TObject *Sender);
 	void __fastcall ShowButClick(TObject *Sender);
-	void __fastcall GraphButClick(TObject *Sender);
 	void __fastcall PaintBox1Paint(TObject *Sender);
 	void __fastcall A25SpinChange(TObject *Sender);
+	void __fastcall A50SpinChange(TObject *Sender);
+	void __fastcall A75SpinChange(TObject *Sender);
+	void __fastcall SubButClick(TObject *Sender);
+	void __fastcall SpinEdit1Change(TObject *Sender);
+	void __fastcall PaintBox1Click(TObject *Sender);
+
+
+
 
 private: // User declarations
 		;

@@ -13,9 +13,11 @@ public:
 	int GetSize();
 	int GetValue(int Index);
 	KRCrit GetByIndex(int Index);
+	void SetPrority(std::vector<int>Pr);
 
 protected:
 	std::vector<KRCrit>Crits;
+	std::vector<int>Priority;
 };
 
 #endif //KR_KRCRITSYS_H_

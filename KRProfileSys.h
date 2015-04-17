@@ -5,6 +5,10 @@
 #include "KRProfile.h"
 #include "KRCritSys.h"
 
+enum Range {
+	A_NONE, A_WORST, A_25, A_50, A_75, A_BEST
+};
+
 class KRProfileSys {
 public:
 	KRProfileSys();
@@ -13,12 +17,15 @@ public:
 	void AddProfile(KRProfile Profile);
 	void AddBest(KRProfile Profile);
 	void AddWorst(KRProfile Profile);
+	void AddSpecial(Range A_Range, KRProfile Profile);
 	void ChangeProfile(int Index1, int Index2, int Value);
 	void ChangeBest(int Index, int Value);
 	void ChangeWorst(int Index, int Value);
+	void ChangeSpecial(Range A_Range, int Index, int Value);
 	KRProfile GetByIndex(int Index);
 	KRProfile GetBest();
 	KRProfile GetWorst();
+	KRProfile GetSpecial(Range A_Range);
 	int GetSize();
 
 	KRCritSys Crits;
@@ -27,6 +34,9 @@ private:
 
 	std::vector<KRProfile>Profiles;
 	KRProfile Best;
+	KRProfile A75;
+	KRProfile A50;
+	KRProfile A25;
 	KRProfile Worst;
 };
 
