@@ -42,6 +42,9 @@ void KRProfileSys::AddSpecial(Range A_Range, KRProfile Profile) {
 	case A_BEST:
 		Best = Profile;
 		break;
+	case A_EQ:
+		AEQ = Profile;
+		break;
 	default:
 		break;
 	}
@@ -77,6 +80,9 @@ void KRProfileSys::ChangeSpecial(Range A_Range, int Index, int Value) {
 		break;
 	case A_BEST:
 		Best.ChangeCrit(Index, Value);
+		break;
+	case A_EQ:
+		AEQ.ChangeCrit(Index, Value);
 		break;
 	default:
 		break;
@@ -117,6 +123,9 @@ KRProfile KRProfileSys::GetSpecial(Range A_Range) {
 		break;
 	case A_BEST:
 		return Best;
+		break;
+	case A_EQ:
+		return AEQ;
 		break;
 	default:
 		break;

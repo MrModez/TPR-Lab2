@@ -55,9 +55,10 @@ void __fastcall TMainForm::FormCreate(TObject *Sender) {
 	Profiles.ChangeBest(1, 100);
 	Profiles.ChangeBest(2, 1);
 
-	Profiles.AddSpecial(A_25, KRProfile("0.25", Crits));
-	Profiles.AddSpecial(A_50, KRProfile("0.50", Crits));
-	Profiles.AddSpecial(A_75, KRProfile("0.75", Crits));
+	Profiles.AddSpecial(A_25, KRProfile("A25", Crits));
+	Profiles.AddSpecial(A_50, KRProfile("A50", Crits));
+	Profiles.AddSpecial(A_75, KRProfile("A75", Crits));
+	Profiles.AddSpecial(A_EQ, KRProfile("AEQ", Crits));
 	for (int i = 0; i < Crits.GetSize(); i++) {
 		int Worst = Profiles.GetWorst().GetValue(i);
 		int Best = Profiles.GetBest().GetValue(i);
@@ -68,6 +69,7 @@ void __fastcall TMainForm::FormCreate(TObject *Sender) {
 		Profiles.ChangeSpecial(A_25, i, (Worst + (Worst + Best) / 2.0) / 2.0);
 		Profiles.ChangeSpecial(A_50, i, (Worst + Best) / 2.0);
 		Profiles.ChangeSpecial(A_75, i, (Best + (Worst + Best) / 2.0) / 2.0);
+		Profiles.ChangeSpecial(A_EQ, i, (Worst + Best) / 2.0);
 	}
 	// A25Spin->Value = (Worst + (Worst + Best) / 2.0) / 2.0;
 	// A50Spin->Value = (Worst + Best) / 2.0;
@@ -82,8 +84,8 @@ void __fastcall TMainForm::ShowButClick(TObject *Sender) {
 
 	for (int i = 0; i < Profiles.GetSize(); i++) {
 		StringGrid->Cells[0][i + 1] = Profiles.GetByIndex(i).Name;
-		StringGrid->Cells[0][Profiles.GetSize() + 1] = Profiles.GetBest().Name;
-		StringGrid->Cells[0][Profiles.GetSize() + 2] = Profiles.GetWorst().Name;
+		StringGrid->Cells[0][Profiles.GetSize() + 2] = Profiles.GetBest().Name;
+		StringGrid->Cells[0][Profiles.GetSize() + 1] = Profiles.GetWorst().Name;
 		for (int j = 0; j < Profiles.Crits.GetSize(); j++) {
 			StringGrid->Cells[j + 1][0] = Profiles.Crits.GetByIndex(j).Name;
 			StringGrid->Cells[j + 1][i + 1] = STR(Profiles.GetByIndex(i).GetValue(j));
@@ -110,6 +112,7 @@ void __fastcall TMainForm::ShowButClick(TObject *Sender) {
 		// AStringGrid->Cells[j + 1][Profiles.GetSize() + 1] = STR(Profiles.GetWorst().GetValue(j));
 	}
 
+	// DEBUG(Profiles.GetWorst().GetValue(0));
 	PaintBox1Click(this);
 }
 
@@ -223,6 +226,15 @@ void __fastcall TMainForm::PaintBox1Paint(TObject * Sender) {
 }
 
 // ---------------------------------------------------------------------------
+void __fastcall TMainForm::PaintBox1Click(TObject *Sender) {
+	int i = IndexSpin->Value;
+	A25Spin->Value = Profiles.GetSpecial(A_25).GetValue(i);
+	A50Spin->Value = Profiles.GetSpecial(A_50).GetValue(i);
+	A75Spin->Value = Profiles.GetSpecial(A_75).GetValue(i);
+	PaintBox1->Refresh();
+}
+
+// ---------------------------------------------------------------------------
 
 void __fastcall TMainForm::A25SpinChange(TObject * Sender) {
 	int i = IndexSpin->Value;
@@ -263,20 +275,61 @@ void __fastcall TMainForm::SubButClick(TObject *Sender) {
 		Str += " < " + Profiles.Crits.GetByIndex(Priority[i]).Name;
 	}
 	QLabel->Caption = Str;
+
+	MIndexSpin->MinValue = 1;
+	MIndexSpin->MaxValue = Profiles.Crits.GetSize() - 1;
+	MIndexSpin->Value = 1;
+	MIndexSpinChange(this);
 }
 
 // ---------------------------------------------------------------------------
-void __fastcall TMainForm::SpinEdit1Change(TObject *Sender) {
+void __fastcall TMainForm::MIndexSpinChange(TObject *Sender) {
 	///
+	int i = MIndexSpin->Value;
+	if (!Profiles.Crits.GetByIndex(MIndexSpin->Value).dec) {
+		MValueSpin->MinValue = Profiles.GetWorst().GetValue(i);
+		MValueSpin->MaxValue = Profiles.GetBest().GetValue(i);
+		MValueSpin->Value = Profiles.GetSpecial(A_EQ).GetValue(i);
+	}
+	else {
+		MValueSpin->MinValue = Profiles.GetBest().GetValue(i);
+		MValueSpin->MaxValue = Profiles.GetWorst().GetValue(i);
+		MValueSpin->Value = Profiles.GetSpecial(A_EQ).GetValue(i);
+	}
 }
 
 // ---------------------------------------------------------------------------
-void __fastcall TMainForm::PaintBox1Click(TObject *Sender) {
-	int i = IndexSpin->Value;
-	// ShowMessage(Profiles.GetSpecial(A_50).GetValue(i));
-	A25Spin->Value = Profiles.GetSpecial(A_25).GetValue(i);
-	A50Spin->Value = Profiles.GetSpecial(A_50).GetValue(i);
-	A75Spin->Value = Profiles.GetSpecial(A_75).GetValue(i);
-	PaintBox1->Refresh();
+void __fastcall TMainForm::MValueSpinChange(TObject *Sender) {
+	int i = MIndexSpin->Value;
+	Profiles.ChangeSpecial(A_EQ, i, MValueSpin->Value);
+
+	String Str;
+	int A1 = Profiles.Crits.GetPriority(0); // 2
+	int A2 = Profiles.Crits.GetPriority(i); // 1
+	Str = "(";
+	for (int i = 0; i < Profiles.Crits.GetSize(); i++) {
+		if (A1 == i)
+			Str += STR(MValueSpin->Value) + "?"; // SHIT
+		else
+			Str += STR(Profiles.GetWorst().GetValue(i));
+		if (i + 1 < Profiles.Crits.GetSize())
+			Str += ", ";
+		else
+			Str += ")";
+	}
+	MLabel1->Caption = Str;
+
+	Str = "(";
+	for (int i = 0; i < Profiles.Crits.GetSize(); i++) {
+		if (A2 == i)
+			Str += STR(Profiles.GetBest().GetValue(i));
+		else
+			Str += STR(Profiles.GetWorst().GetValue(i));
+		if (i + 1 < Profiles.Crits.GetSize())
+			Str += ", ";
+		else
+			Str += ")";
+	}
+	MLabel2->Caption = Str;
 }
 // ---------------------------------------------------------------------------

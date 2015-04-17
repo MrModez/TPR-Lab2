@@ -14,6 +14,8 @@ public:
 	int GetValue(int Index);
 	KRCrit GetByIndex(int Index);
 	void SetPrority(std::vector<int>Pr);
+	KRCrit GetByPriority(int Index);
+	int GetPriority(int Index);
 
 protected:
 	std::vector<KRCrit>Crits;

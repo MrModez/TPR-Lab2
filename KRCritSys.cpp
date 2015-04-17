@@ -30,3 +30,11 @@ KRCrit KRCritSys::GetByIndex(int Index) {
 void KRCritSys::SetPrority(std::vector<int>Pr) {
 	Priority = Pr;
 };
+
+KRCrit KRCritSys::GetByPriority(int Index) {
+	return Crits[Priority[Index]];
+};
+
+int KRCritSys::GetPriority(int Index) {
+	return Priority[Index];
+};

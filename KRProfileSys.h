@@ -6,7 +6,7 @@
 #include "KRCritSys.h"
 
 enum Range {
-	A_NONE, A_WORST, A_25, A_50, A_75, A_BEST
+	A_NONE, A_WORST, A_25, A_50, A_75, A_BEST, A_EQ
 };
 
 class KRProfileSys {
@@ -38,6 +38,7 @@ private:
 	KRProfile A50;
 	KRProfile A25;
 	KRProfile Worst;
+	KRProfile AEQ;
 };
 
 #endif //KR_KRPROFILESYS_H_

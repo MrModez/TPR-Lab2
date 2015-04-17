@@ -30,10 +30,10 @@ __published: // IDE-managed Components
 	TSpinEdit *IndexSpin;
 	TStringGrid *AStringGrid;
 	TButton *SubBut;
-	TSpinEdit *SpinEdit1;
+	TSpinEdit *MIndexSpin;
 	TLabel *MLabel1;
 	TLabel *MLabel2;
-	TSpinEdit *SpinEdit2;
+	TSpinEdit *MValueSpin;
 	TLabel *QLabel;
 
 	void __fastcall FormCreate(TObject *Sender);
@@ -43,8 +43,9 @@ __published: // IDE-managed Components
 	void __fastcall A50SpinChange(TObject *Sender);
 	void __fastcall A75SpinChange(TObject *Sender);
 	void __fastcall SubButClick(TObject *Sender);
-	void __fastcall SpinEdit1Change(TObject *Sender);
+	void __fastcall MIndexSpinChange(TObject *Sender);
 	void __fastcall PaintBox1Click(TObject *Sender);
+	void __fastcall MValueSpinChange(TObject *Sender);
 
 
 

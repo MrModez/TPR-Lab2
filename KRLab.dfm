@@ -5,7 +5,7 @@ object MainForm: TMainForm
   BorderStyle = bsSingle
   Caption = 'MainForm'
   ClientHeight = 340
-  ClientWidth = 1043
+  ClientWidth = 1052
   Color = clBtnFace
   DoubleBuffered = True
   Font.Charset = DEFAULT_CHARSET
@@ -29,7 +29,7 @@ object MainForm: TMainForm
   end
   object MLabel1: TLabel
     Left = 824
-    Top = 48
+    Top = 64
     Width = 64
     Height = 23
     Caption = 'MLabel1'
@@ -42,7 +42,7 @@ object MainForm: TMainForm
   end
   object MLabel2: TLabel
     Left = 824
-    Top = 77
+    Top = 85
     Width = 64
     Height = 23
     Caption = 'MLabel2'
@@ -147,7 +147,7 @@ object MainForm: TMainForm
     TabOrder = 7
     OnClick = SubButClick
   end
-  object SpinEdit1: TSpinEdit
+  object MIndexSpin: TSpinEdit
     Left = 824
     Top = 127
     Width = 70
@@ -156,9 +156,9 @@ object MainForm: TMainForm
     MinValue = 0
     TabOrder = 8
     Value = 0
-    OnChange = SpinEdit1Change
+    OnChange = MIndexSpinChange
   end
-  object SpinEdit2: TSpinEdit
+  object MValueSpin: TSpinEdit
     Left = 900
     Top = 127
     Width = 70
@@ -167,6 +167,6 @@ object MainForm: TMainForm
     MinValue = 0
     TabOrder = 9
     Value = 0
-    OnChange = SpinEdit1Change
+    OnChange = MValueSpinChange
   end
 end
