@@ -15,12 +15,20 @@ void KRCritSys::ChangeCrit(int Index, int Value) {
 	Crits[Index].Value = Value;
 };
 
+void KRCritSys::ChangeCoeff(int Index, int Value) {
+	Crits[Index].Coeff = Value;
+};
+
 int KRCritSys::GetSize() {
 	return Crits.size();
 };
 
 int KRCritSys::GetValue(int Index) {
 	return Crits[Index].Value;
+}
+
+int KRCritSys::GetCoeff(int Index) {
+	return Crits[Index].Coeff;
 }
 
 KRCrit KRCritSys::GetByIndex(int Index) {

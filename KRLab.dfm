@@ -5,7 +5,7 @@ object MainForm: TMainForm
   BorderStyle = bsSingle
   Caption = 'MainForm'
   ClientHeight = 340
-  ClientWidth = 1052
+  ClientWidth = 990
   Color = clBtnFace
   DoubleBuffered = True
   Font.Charset = DEFAULT_CHARSET
@@ -19,13 +19,13 @@ object MainForm: TMainForm
   OnCreate = FormCreate
   PixelsPerInch = 96
   TextHeight = 21
-  object PaintBox1: TPaintBox
+  object GraphPaintBox: TPaintBox
     Left = 328
     Top = 8
     Width = 313
     Height = 241
-    OnClick = PaintBox1Click
-    OnPaint = PaintBox1Paint
+    OnClick = GraphPaintBoxClick
+    OnPaint = GraphPaintBoxPaint
   end
   object MLabel1: TLabel
     Left = 824
@@ -65,6 +65,13 @@ object MainForm: TMainForm
     Font.Name = 'Segoe UI'
     Font.Style = []
     ParentFont = False
+  end
+  object VLabel: TLabel
+    Left = 824
+    Top = 176
+    Width = 47
+    Height = 21
+    Caption = 'VLabel'
   end
   object StringGrid: TStringGrid
     Left = 8
@@ -126,7 +133,7 @@ object MainForm: TMainForm
     MinValue = 0
     TabOrder = 5
     Value = 0
-    OnChange = PaintBox1Click
+    OnChange = GraphPaintBoxClick
   end
   object AStringGrid: TStringGrid
     Left = 656

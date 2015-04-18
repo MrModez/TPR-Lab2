@@ -131,3 +131,16 @@ KRProfile KRProfileSys::GetSpecial(Range A_Range) {
 		break;
 	}
 };
+
+float KRProfileSys::GetGraphValue(int Index, int Value) {
+	int Val1 = 0, Val2 = 0;
+	float Coeff1 = 0, Coeff2 = 0;
+	for (int i = A_WORST; i < A_BEST; i++) {
+		if (Value >= GetSpecial(i).GetValue(Index) && Value < GetSpecial(i + 1).GetValue(Index)) {
+			Val1 = GetSpecial(i).GetValue(Index);
+			Val2 = GetSpecial(i + 1).GetValue(Index);
+			Coeff1 = GetSpecial(i).GetCoeff(Index);
+			Coeff2 = GetSpecial(i + 1).GetCoeff(Index);
+		};
+	}
+}

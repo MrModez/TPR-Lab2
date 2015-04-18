@@ -23,7 +23,7 @@ __published: // IDE-managed Components
 
 	TStringGrid *StringGrid;
 	TButton *ShowBut;
-	TPaintBox *PaintBox1;
+	TPaintBox *GraphPaintBox;
 	TSpinEdit *A25Spin;
 	TSpinEdit *A50Spin;
 	TSpinEdit *A75Spin;
@@ -35,16 +35,17 @@ __published: // IDE-managed Components
 	TLabel *MLabel2;
 	TSpinEdit *MValueSpin;
 	TLabel *QLabel;
+	TLabel *VLabel;
 
 	void __fastcall FormCreate(TObject *Sender);
 	void __fastcall ShowButClick(TObject *Sender);
-	void __fastcall PaintBox1Paint(TObject *Sender);
+	void __fastcall GraphPaintBoxPaint(TObject *Sender);
 	void __fastcall A25SpinChange(TObject *Sender);
 	void __fastcall A50SpinChange(TObject *Sender);
 	void __fastcall A75SpinChange(TObject *Sender);
 	void __fastcall SubButClick(TObject *Sender);
 	void __fastcall MIndexSpinChange(TObject *Sender);
-	void __fastcall PaintBox1Click(TObject *Sender);
+	void __fastcall GraphPaintBoxClick(TObject *Sender);
 	void __fastcall MValueSpinChange(TObject *Sender);
 
 

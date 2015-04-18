@@ -22,23 +22,24 @@ public:
 	void ChangeBest(int Index, int Value);
 	void ChangeWorst(int Index, int Value);
 	void ChangeSpecial(Range A_Range, int Index, int Value);
-	KRProfile GetByIndex(int Index);
-	KRProfile GetBest();
-	KRProfile GetWorst();
-	KRProfile GetSpecial(Range A_Range);
+	KRProfile* GetByIndex(int Index);
+	KRProfile* GetBest();
+	KRProfile* GetWorst();
+	KRProfile* GetSpecial(Range A_Range);
 	int GetSize();
+	float GetGraphValue(int Index, int Value);
 
 	KRCritSys Crits;
 
 private:
 
-	std::vector<KRProfile>Profiles;
-	KRProfile Best;
-	KRProfile A75;
-	KRProfile A50;
-	KRProfile A25;
-	KRProfile Worst;
-	KRProfile AEQ;
+	std::vector<KRProfile*>Profiles;
+	KRProfile* Best;
+	KRProfile* A75;
+	KRProfile* A50;
+	KRProfile* A25;
+	KRProfile* Worst;
+	KRProfile* AEQ;
 };
 
 #endif //KR_KRPROFILESYS_H_

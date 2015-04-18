@@ -10,7 +10,9 @@ public:
 	KRProfile(String N, KRCritSys Crits);
 	void ChangeCrit(int Index, int Value);
 	void SetCrits(int* Crits);
+	void ChangeCoeff(int Index, int Value);
 	int GetValue(int Index);
+	int GetCoeff(int Index);
 
 	String Name;
 
