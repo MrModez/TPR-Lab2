@@ -5,7 +5,7 @@ object MainForm: TMainForm
   BorderStyle = bsSingle
   Caption = 'MainForm'
   ClientHeight = 340
-  ClientWidth = 990
+  ClientWidth = 1000
   Color = clBtnFace
   DoubleBuffered = True
   Font.Charset = DEFAULT_CHARSET
@@ -175,5 +175,14 @@ object MainForm: TMainForm
     TabOrder = 9
     Value = 0
     OnChange = MValueSpinChange
+  end
+  object CalcBut: TButton
+    Left = 824
+    Top = 255
+    Width = 158
+    Height = 66
+    Caption = 'Calculate'
+    TabOrder = 10
+    OnClick = CalcButClick
   end
 end

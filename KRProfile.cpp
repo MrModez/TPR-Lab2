@@ -12,8 +12,12 @@ void KRProfile::ChangeCrit(int Index, int Value) {
 	CritsSys.ChangeCrit(Index, Value);
 }
 
-void KRProfile::ChangeCoeff(int Index, int Value) {
+void KRProfile::ChangeCoeff(int Index, float Value) {
 	CritsSys.ChangeCoeff(Index, Value);
+}
+
+void KRProfile::ChangeCoeff(float Value) {
+	CritsSys.ChangeCoeff(Value);
 }
 
 void KRProfile::SetCrits(int* Cts) {
@@ -26,6 +30,6 @@ int KRProfile::GetValue(int Index) {
 	return CritsSys.GetValue(Index);
 };
 
-int KRProfile::GetCoeff(int Index) {
+float KRProfile::GetCoeff(int Index) {
 	return CritsSys.GetCoeff(Index);
 }

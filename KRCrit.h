@@ -11,7 +11,7 @@ public:
 	// protected:
 	String Name;
 	int Value;
-	int Coeff;
+	float Coeff;
 	bool dec;
 };
 

@@ -36,6 +36,7 @@ __published: // IDE-managed Components
 	TSpinEdit *MValueSpin;
 	TLabel *QLabel;
 	TLabel *VLabel;
+	TButton *CalcBut;
 
 	void __fastcall FormCreate(TObject *Sender);
 	void __fastcall ShowButClick(TObject *Sender);
@@ -47,6 +48,7 @@ __published: // IDE-managed Components
 	void __fastcall MIndexSpinChange(TObject *Sender);
 	void __fastcall GraphPaintBoxClick(TObject *Sender);
 	void __fastcall MValueSpinChange(TObject *Sender);
+	void __fastcall CalcButClick(TObject *Sender);
 
 
 

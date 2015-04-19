@@ -10,14 +10,15 @@ public:
 	KRCritSys(std::vector<KRCrit>C);
 	void AddCrit(KRCrit Crit);
 	void ChangeCrit(int Index, int Value);
-	void ChangeCoeff(int Index, int Value);
+	void ChangeCoeff(float Value);
+	void ChangeCoeff(int Index, float Value);
 	int GetSize();
 	int GetValue(int Index);
 	KRCrit GetByIndex(int Index);
 	void SetPrority(std::vector<int>Pr);
 	KRCrit GetByPriority(int Index);
 	int GetPriority(int Index);
-	int GetCoeff(int Index);
+	float GetCoeff(int Index);
 
 protected:
 	std::vector<KRCrit>Crits;

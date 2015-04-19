@@ -14,10 +14,10 @@ public:
 	KRProfileSys();
 	KRProfileSys(KRCritSys Crt);
 	KRProfileSys(std::vector<KRProfile>P);
-	void AddProfile(KRProfile Profile);
-	void AddBest(KRProfile Profile);
-	void AddWorst(KRProfile Profile);
-	void AddSpecial(Range A_Range, KRProfile Profile);
+	void AddProfile(KRProfile *Profile);
+	void AddBest(KRProfile *Profile);
+	void AddWorst(KRProfile *Profile);
+	void AddSpecial(Range A_Range, KRProfile *Profile);
 	void ChangeProfile(int Index1, int Index2, int Value);
 	void ChangeBest(int Index, int Value);
 	void ChangeWorst(int Index, int Value);
@@ -27,7 +27,8 @@ public:
 	KRProfile* GetWorst();
 	KRProfile* GetSpecial(Range A_Range);
 	int GetSize();
-	float GetGraphValue(int Index, int Value);
+	//float GetGraphValue(int Index, int Value);
+	float GraphValue(int Index, int iEQ);
 
 	KRCritSys Crits;
 
