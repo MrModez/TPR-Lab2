@@ -25,48 +25,73 @@ __fastcall TMainForm::TMainForm(TComponent* Owner) : TForm(Owner) {
 // ---------------------------------------------------------------------------
 
 void __fastcall TMainForm::FormCreate(TObject *Sender) {
-	///
-
-}
-
-// --------------------------------------------------------------------------
-void __fastcall TMainForm::StartButClick(TObject *Sender) {
 	Crits = KRCritSys();
-	Crits.AddCrit(KRCrit("Время решения", 1));
-	Crits.AddCrit(KRCrit("Точность", 0));
-	Crits.AddCrit(KRCrit("Устойчивость", 0));
-	Crits.AddCrit(KRCrit("Память", 1));
+	Crits.AddCrit(KRCrit("Crit1", 0));
+	Crits.AddCrit(KRCrit("Crit2", 0));
+	Crits.AddCrit(KRCrit("Crit3", 1));
 
-	KRProfile* Worst = new KRProfile("Худ", Crits);
-	int CW[] = {500, 20, 0, 256};
-	Worst->SetCrits(CW);
+	Profiles = KRProfileSys(Crits);
 
-	KRProfile* Best = new KRProfile("Луд", Crits);
-	int CB[] = {1, 100, 1, 2};
-	Best->SetCrits(CB);
-	Profiles = KRProfileSys(Worst, Best, Crits);
-
-	KRProfile* Prof1 = new KRProfile("МВГ", Crits);
-	int C[] = {40, 100, 1, 16};
+	KRProfile* Prof1 = new KRProfile("Prof1", Crits);
+	int C[] = {25, 85, 2};
 	Prof1->SetCrits(C);
 	Profiles.AddProfile(Prof1);
 
-	KRProfile* Prof2 = new KRProfile("ГА", Crits);
-	int C2[] = {8, 85, 1, 32};
-	Prof2->SetCrits(C2);
+	KRProfile* Prof2 = new KRProfile("Prof2", Crits);
+	Prof2->ChangeCrit(0, 35);
+	Prof2->ChangeCrit(1, 52);
+	Prof2->ChangeCrit(2, 3);
 	Profiles.AddProfile(Prof2);
 
-	KRProfile* Prof3 = new KRProfile("МБС", Crits);
-	int C3[] = {20, 70, 0, 64};
-	Prof3->SetCrits(C3);
-	Profiles.AddProfile(Prof3);
+	Profiles.AddProfile(new KRProfile("Prof3", Crits));
+	Profiles.ChangeProfile(2, 0, 60);
+	Profiles.ChangeProfile(2, 1, 100);
+	Profiles.ChangeProfile(2, 2, 1);
 
-	KRProfile* Prof4 = new KRProfile("Пере", Crits);
-	int C4[] = {120, 100, 1, 128};
-	Prof4->SetCrits(C4);
-	Profiles.AddProfile(Prof4);
+	Profiles.AddWorst(new KRProfile("Worst", Crits));
+	Profiles.ChangeWorst(0, 20);
+	Profiles.ChangeWorst(1, 0);
+	Profiles.ChangeWorst(2, 10);
+	Profiles.AddBest(new KRProfile("Best", Crits));
+	Profiles.ChangeBest(0, 60);
+	Profiles.ChangeBest(1, 100);
+	Profiles.ChangeBest(2, 1);
 
-	ShowButClick(this);
+	// KRProfile A25 = KRProfile("A25", Crits);
+	// A25.ChangeCoeff()
+	Profiles.AddSpecial(A_25, new KRProfile("A25", Crits));
+	Profiles.AddSpecial(A_50, new KRProfile("A50", Crits));
+	Profiles.AddSpecial(A_75, new KRProfile("A75", Crits));
+	Profiles.AddSpecial(A_EQ, new KRProfile("AEQ", Crits));
+	Profiles.GetSpecial(A_WORST)->ChangeCoeff(0.0);
+	Profiles.GetSpecial(A_25)->ChangeCoeff(0.25);
+	Profiles.GetSpecial(A_50)->ChangeCoeff(0.50);
+	Profiles.GetSpecial(A_75)->ChangeCoeff(0.75);
+	Profiles.GetSpecial(A_BEST)->ChangeCoeff(1.0);
+	Profiles.GetSpecial(A_EQ)->ChangeCoeff(0);
+
+	for (int i = 0; i < Crits.GetSize(); i++) {
+		int Worst = Profiles.GetWorst()->GetValue(i);
+		int Best = Profiles.GetBest()->GetValue(i);
+		if (Profiles.Crits.GetByIndex(i).dec) {
+			Worst = Profiles.GetWorst()->GetValue(i);
+			Best = Profiles.GetBest()->GetValue(i);
+		}
+		// Profiles.GetSpecial(A_25)->ChangeCrit(i, (Worst + (Worst + Best) / 2.0) / 2.0);
+		Profiles.ChangeSpecial(A_25, i, (Worst + (Worst + Best) / 2.0) / 2.0);
+		Profiles.ChangeSpecial(A_50, i, (Worst + Best) / 2.0);
+		Profiles.ChangeSpecial(A_75, i, (Best + (Worst + Best) / 2.0) / 2.0);
+		Profiles.ChangeSpecial(A_EQ, i, (Worst + Best) / 2.0);
+		if (Profiles.Crits.GetByIndex(i).dec) {
+			Profiles.ChangeSpecial(A_25, i, (Worst + (Worst + Best) / 2.0) / 2.0);
+			Profiles.ChangeSpecial(A_50, i, (Worst + Best) / 2.0);
+			Profiles.ChangeSpecial(A_75, i, (Best + (Worst + Best) / 2.0) / 2.0);
+			Profiles.ChangeSpecial(A_EQ, i, (Worst + Best) / 2.0);
+		}
+	}
+	// A25Spin->Value = (Worst + (Worst + Best) / 2.0) / 2.0;
+	// A50Spin->Value = (Worst + Best) / 2.0;
+	// A75Spin->Value = (Best + (Worst + Best) / 2.0) / 2.0;
 }
 
 // ---------------------------------------------------------------------------
@@ -114,14 +139,17 @@ void __fastcall TMainForm::GraphPaintBoxPaint(TObject * Sender) {
 		iWorst = Profiles.GetBest()->GetValue(i);
 	}
 	int iA25 = Profiles.GetSpecial(A_25)->GetValue(i);
+	String sA25 = STRF(Profiles.GetSpecial(A_25)->GetCoeff(i));
 	int iA50 = Profiles.GetSpecial(A_50)->GetValue(i);
 	int iA75 = Profiles.GetSpecial(A_75)->GetValue(i);
-	String sA25 = STRF(Profiles.GetSpecial(A_25)->GetCoeff(i));
 
 	///
 	TDirect2DCanvas* Canvas;
 	Canvas = new TDirect2DCanvas(GraphPaintBox->Canvas, GraphPaintBox->ClientRect);
+	// if (AACheck->Checked)
 	Canvas->RenderTarget->SetAntialiasMode(D2D1_ANTIALIAS_MODE_FORCE_DWORD);
+	// else
+	// Canvas->RenderTarget->SetAntialiasMode(D2D1_ANTIALIAS_MODE_ALIASED);
 	Canvas->BeginDraw();
 	try {
 		Canvas->Brush->Style = bsClear;
@@ -253,7 +281,7 @@ void __fastcall TMainForm::SubButClick(TObject *Sender) {
 		}
 	}
 	Profiles.Crits.SetPrority(Priority);
-
+	// ShowMessage(Profiles.Crits.GetByIndex(Priority[0]).Name);
 	String Str = Profiles.Crits.GetByIndex(Priority[0]).Name;
 	for (int i = 1; i < Profiles.Crits.GetSize(); i++) {
 		Str += " > " + Profiles.Crits.GetByIndex(Priority[i]).Name;
@@ -339,40 +367,63 @@ void __fastcall TMainForm::MValueSpinChange(TObject *Sender) {
 // ---------------------------------------------------------------------------
 void __fastcall TMainForm::CalcButClick(TObject * Sender) {
 	///
+	std::vector<float>X;
+	// X.resize(Profiles.Crits.GetSize());
+	std::vector<float>a;
+
 	String Str = "";
-	Profiles.SetEQCoeffs();
-	Profiles.SetLambdas();
+	for (int i = 0; i < Profiles.Crits.GetSize(); i++) {
+		int base = Profiles.Crits.GetPriority(0);
+		int index = Profiles.Crits.GetPriority(i);
+		int value = Profiles.GetSpecial(A_EQ)->GetValue(index);
+		float res = Profiles.GraphValue(base, value);
+		Profiles.GetSpecial(A_EQ)->ChangeCoeff(index, res);
+
+		float Res = Profiles.GetSpecial(A_EQ)->GetCoeff(Profiles.Crits.GetPriority(i));
+		Str += STR(i) + ": " + STRF(Res) + "\n";
+		a.push_back(Res);
+	}
+	// DEBUG(Str);
+
+	float sum = 1;
+	for (unsigned int i = 1; i < a.size(); i++) {
+		sum += a[i];
+	}
+
+	X.push_back(1 / sum);
+	for (int i = 1; i < Profiles.Crits.GetSize(); i++) {
+		X.push_back(X[i] = a[i] * X[0]);
+	}
+
+	std::vector<float>L;
+	for (int i = 0; i < Profiles.Crits.GetSize(); i++) {
+		int index = Profiles.Crits.GetPriority(i);
+		L.push_back(X[index]);
+	}
+	Profiles.Crits.SetLambdas(L);
 
 	Str = "";
 	for (int i = 0; i < Profiles.Crits.GetSize(); i++) {
 		Str += STRF(Profiles.Crits.GetLambda(i)) + "\n";
 	}
 	VLabel->Caption = Str;
+	// DEBUG(Str);
+}
 
+// --------------------------------------------------------------------------
+void __fastcall TMainForm::ResButtonClick(TObject *Sender) {
+	// float res = Profiles.GraphValue(0, Profiles.GetByIndex(0)->GetValue(0));
+	// Profiles.GraphValue(k, Profiles.GetByIndex(i)->GetValue(k));
+	// DEBUG(STRF(res));
+
+	// AStringGrid
 	RStringGrid->RowCount = Profiles.GetSize() + 1;
 	RStringGrid->ColCount = 2;
 
 	for (int i = 0; i < Profiles.GetSize(); i++) {
 		RStringGrid->Cells[0][i + 1] = Profiles.GetByIndex(i)->Name;
 		RStringGrid->Cells[1][i + 1] = STRF(Profiles.ResultValue(i));
+		// DEBUG(STRF(Profiles.ResultValue(i)));
 	}
-}
-
-// ---------------------------------------------------------------------------
-void __fastcall TMainForm::LoadButClick(TObject *Sender) {
-	/* if (DatOpenDialog->Execute()) {
-	 TStringList* Dat = new TStringList;
-	 Dat->LoadFromFile(DatOpenDialog->FileName);
-	 int index = 0;
-	 for (int i = 0; i < Dat->Count; i++) {
-	 if (Dat->Names[i] == "x") {
-	 float x = Dat->ValueFromIndex[i].ToDouble();
-	 float y = Dat->ValueFromIndex[i + 1].ToDouble();
-	 index++;
-	 }
-	 }
-	 delete Dat;
-	 }
-	 */
 }
 // ---------------------------------------------------------------------------
