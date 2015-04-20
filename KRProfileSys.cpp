@@ -3,12 +3,38 @@
 KRProfileSys::KRProfileSys() {
 }
 
-KRProfileSys::KRProfileSys(KRCritSys Crt) {
+KRProfileSys::KRProfileSys(KRProfile *W, KRProfile *B, KRCritSys Crt) {
 	Crits = Crt;
-}
 
-KRProfileSys::KRProfileSys(std::vector<KRProfile>P) {
-	// Profiles = P;
+	Worst = W;
+	Best = B;
+
+	AddSpecial(A_25, new KRProfile("A25", Crits));
+	AddSpecial(A_50, new KRProfile("A50", Crits));
+	AddSpecial(A_75, new KRProfile("A75", Crits));
+	AddSpecial(A_EQ, new KRProfile("AEQ", Crits));
+	GetSpecial(A_WORST)->ChangeCoeff(0.0);
+	GetSpecial(A_25)->ChangeCoeff(0.25);
+	GetSpecial(A_50)->ChangeCoeff(0.50);
+	GetSpecial(A_75)->ChangeCoeff(0.75);
+	GetSpecial(A_BEST)->ChangeCoeff(1.0);
+	GetSpecial(A_EQ)->ChangeCoeff(0);
+
+	for (int i = 0; i < Crits.GetSize(); i++) {
+		int Worst = 0, Best = 0;
+		if (!Crits.GetByIndex(i).dec) {
+			Worst = GetWorst()->GetValue(i);
+			Best = GetBest()->GetValue(i);
+		}
+		else {
+			Worst = GetWorst()->GetValue(i);
+			Best = GetBest()->GetValue(i);
+		}
+		ChangeSpecial(A_25, i, (Worst + (Worst + Best) / 2.0) / 2.0);
+		ChangeSpecial(A_50, i, (Worst + Best) / 2.0);
+		ChangeSpecial(A_75, i, (Best + (Worst + Best) / 2.0) / 2.0);
+		ChangeSpecial(A_EQ, i, (Worst + Best) / 2.0);
+	}
 }
 
 void KRProfileSys::AddProfile(KRProfile *Profile) {
@@ -130,6 +156,7 @@ KRProfile* KRProfileSys::GetSpecial(Range A_Range) {
 	default:
 		break;
 	}
+	return NULL;
 };
 
 float KRProfileSys::GraphValue(int Index, int Value) {
@@ -209,4 +236,37 @@ float KRProfileSys::ResultValue(int Index) {
 	}
 
 	return result;
+}
+
+void KRProfileSys::SetLambdas() {
+	std::vector<float>X;
+	float sum = 1;
+	for (unsigned int i = 1; i < Crits.GetSize(); i++) {
+		int index = Crits.GetPriority(i);
+		sum += GetSpecial(A_EQ)->GetCoeff(index);
+	}
+
+	X.push_back(1 / sum);
+	for (int i = 1; i < Crits.GetSize(); i++) {
+		int index = Crits.GetPriority(i);
+		float a = GetSpecial(A_EQ)->GetCoeff(index);
+		X.push_back(a * X[0]);
+	}
+
+	std::vector<float>L;
+	for (int i = 0; i < Crits.GetSize(); i++) {
+		int index = Crits.GetPriority(i);
+		L.push_back(X[index]);
+	}
+	Crits.SetLambdas(L);
+}
+
+void KRProfileSys::SetEQCoeffs() {
+	for (int i = 0; i < Crits.GetSize(); i++) {
+		int base = Crits.GetPriority(0);
+		int index = Crits.GetPriority(i);
+		int value = GetSpecial(A_EQ)->GetValue(index);
+		float res = GraphValue(base, value);
+		GetSpecial(A_EQ)->ChangeCoeff(index, res);
+	}
 }

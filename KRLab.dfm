@@ -83,9 +83,9 @@ object MainForm: TMainForm
     TabOrder = 0
   end
   object ShowBut: TButton
-    Left = 8
+    Left = 216
     Top = 255
-    Width = 297
+    Width = 89
     Height = 66
     Caption = 'ShowBut'
     TabOrder = 1
@@ -177,22 +177,13 @@ object MainForm: TMainForm
     OnChange = MValueSpinChange
   end
   object CalcBut: TButton
-    Left = 824
+    Left = 988
     Top = 255
     Width = 158
     Height = 66
     Caption = 'Calculate'
     TabOrder = 10
     OnClick = CalcButClick
-  end
-  object ResButton: TButton
-    Left = 988
-    Top = 255
-    Width = 153
-    Height = 66
-    Caption = 'Calculate'
-    TabOrder = 11
-    OnClick = ResButtonClick
   end
   object RStringGrid: TStringGrid
     Left = 988
@@ -201,6 +192,28 @@ object MainForm: TMainForm
     Height = 241
     ColCount = 2
     RowCount = 6
+    TabOrder = 11
+  end
+  object StartBut: TButton
+    Left = 111
+    Top = 255
+    Width = 99
+    Height = 66
+    Caption = 'StartBut'
     TabOrder = 12
+    OnClick = StartButClick
+  end
+  object LoadBut: TButton
+    Left = 8
+    Top = 255
+    Width = 97
+    Height = 66
+    Caption = 'Load'
+    TabOrder = 13
+    OnClick = LoadButClick
+  end
+  object DatOpenDialog: TOpenDialog
+    Left = 840
+    Top = 272
   end
 end

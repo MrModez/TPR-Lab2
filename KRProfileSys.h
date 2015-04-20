@@ -12,8 +12,7 @@ enum Range {
 class KRProfileSys {
 public:
 	KRProfileSys();
-	KRProfileSys(KRCritSys Crt);
-	KRProfileSys(std::vector<KRProfile>P);
+	KRProfileSys(KRProfile *W, KRProfile *B, KRCritSys Crt);
 	void AddProfile(KRProfile *Profile);
 	void AddBest(KRProfile *Profile);
 	void AddWorst(KRProfile *Profile);
@@ -29,6 +28,8 @@ public:
 	int GetSize();
 	float GraphValue(int Index, int Value);
 	float ResultValue(int Index);
+	void SetLambdas();
+	void SetEQCoeffs();
 
 	KRCritSys Crits;
 

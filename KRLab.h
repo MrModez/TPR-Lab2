@@ -10,6 +10,7 @@
 #include <Vcl.Grids.hpp>
 #include <Vcl.ExtCtrls.hpp>
 #include <Vcl.Samples.Spin.hpp>
+#include <Vcl.Dialogs.hpp>
 #include <vector>
 #include <Direct2D.hpp>
 #include "KRCrit.h"
@@ -37,8 +38,10 @@ __published: // IDE-managed Components
 	TLabel *QLabel;
 	TLabel *VLabel;
 	TButton *CalcBut;
-	TButton *ResButton;
 	TStringGrid *RStringGrid;
+	TButton *StartBut;
+	TButton *LoadBut;
+	TOpenDialog *DatOpenDialog;
 
 	void __fastcall FormCreate(TObject *Sender);
 	void __fastcall ShowButClick(TObject *Sender);
@@ -51,7 +54,8 @@ __published: // IDE-managed Components
 	void __fastcall GraphPaintBoxClick(TObject *Sender);
 	void __fastcall MValueSpinChange(TObject *Sender);
 	void __fastcall CalcButClick(TObject *Sender);
-	void __fastcall ResButtonClick(TObject *Sender);
+	void __fastcall StartButClick(TObject *Sender);
+	void __fastcall LoadButClick(TObject *Sender);
 
 
 
