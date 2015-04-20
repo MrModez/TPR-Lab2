@@ -19,10 +19,14 @@ public:
 	KRCrit GetByPriority(int Index);
 	int GetPriority(int Index);
 	float GetCoeff(int Index);
+	void SetLambdas(std::vector<float>L);
+	float GetLambda(int Index);
 
 protected:
 	std::vector<KRCrit>Crits;
 	std::vector<int>Priority;
+	std::vector<float>Lambdas;
+
 };
 
 #endif //KR_KRCRITSYS_H_

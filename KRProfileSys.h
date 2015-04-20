@@ -27,8 +27,8 @@ public:
 	KRProfile* GetWorst();
 	KRProfile* GetSpecial(Range A_Range);
 	int GetSize();
-	//float GetGraphValue(int Index, int Value);
-	float GraphValue(int Index, int iEQ);
+	float GraphValue(int Index, int Value);
+	float ResultValue(int Index);
 
 	KRCritSys Crits;
 

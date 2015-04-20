@@ -37,6 +37,8 @@ __published: // IDE-managed Components
 	TLabel *QLabel;
 	TLabel *VLabel;
 	TButton *CalcBut;
+	TButton *ResButton;
+	TStringGrid *RStringGrid;
 
 	void __fastcall FormCreate(TObject *Sender);
 	void __fastcall ShowButClick(TObject *Sender);
@@ -49,6 +51,7 @@ __published: // IDE-managed Components
 	void __fastcall GraphPaintBoxClick(TObject *Sender);
 	void __fastcall MValueSpinChange(TObject *Sender);
 	void __fastcall CalcButClick(TObject *Sender);
+	void __fastcall ResButtonClick(TObject *Sender);
 
 
 

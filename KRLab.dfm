@@ -5,7 +5,7 @@ object MainForm: TMainForm
   BorderStyle = bsSingle
   Caption = 'MainForm'
   ClientHeight = 340
-  ClientWidth = 1000
+  ClientWidth = 1163
   Color = clBtnFace
   DoubleBuffered = True
   Font.Charset = DEFAULT_CHARSET
@@ -184,5 +184,23 @@ object MainForm: TMainForm
     Caption = 'Calculate'
     TabOrder = 10
     OnClick = CalcButClick
+  end
+  object ResButton: TButton
+    Left = 988
+    Top = 255
+    Width = 153
+    Height = 66
+    Caption = 'Calculate'
+    TabOrder = 11
+    OnClick = ResButtonClick
+  end
+  object RStringGrid: TStringGrid
+    Left = 988
+    Top = 8
+    Width = 153
+    Height = 241
+    ColCount = 2
+    RowCount = 6
+    TabOrder = 12
   end
 end

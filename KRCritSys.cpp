@@ -52,3 +52,11 @@ KRCrit KRCritSys::GetByPriority(int Index) {
 int KRCritSys::GetPriority(int Index) {
 	return Priority[Index];
 };
+
+void KRCritSys::SetLambdas(std::vector<float>L) {
+	Lambdas = L;
+};
+
+float KRCritSys::GetLambda(int Index) {
+	return Lambdas[Index];
+};

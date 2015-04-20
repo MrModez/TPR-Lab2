@@ -132,37 +132,8 @@ KRProfile* KRProfileSys::GetSpecial(Range A_Range) {
 	}
 };
 
-/*
- float KRProfileSys::GetGraphValue(int Index, int Value) {
- int Val1 = 0, Val2 = 0;
- float Coeff1 = 0, Coeff2 = 0;
- int index = 0;
- if (Value <= GetSpecial(A_WORST)->GetValue(Index))
- return 0.0;
- if (Value >= GetSpecial(A_BEST)->GetValue(Index))
- return 1.0;
-
- for (int i = A_WORST; i < A_BEST; i++) {
- if (Value > GetSpecial(i)->GetValue(Index) && Value <= GetSpecial(i + 1)->GetValue(Index)) {
- Val1 = GetSpecial(i)->GetValue(Index);
- Val2 = GetSpecial(i + 1)->GetValue(Index);
- Coeff1 = GetSpecial(i)->GetCoeff(Index);
- Coeff2 = GetSpecial(i + 1)->GetCoeff(Index);
- index = i;
- };
- }
- int A1 = Val2 - Val1;
- int A2 = Value - Val1;
- float C2 = Coeff2 - Coeff1;
-
- float result;
- result = (float)A2 / (float)A1 * (float)C2 + Coeff1;
-
- return result;
- } */
-
-float KRProfileSys::GraphValue(int Index, int iEQ) {
-	int Value = GetSpecial(A_EQ)->GetValue(iEQ);
+float KRProfileSys::GraphValue(int Index, int Value) {
+	// int Value = GetSpecial(A_EQ)->GetValue(iEQ);
 	int Val1 = 0, Val2 = 0;
 	float Coeff1 = 0, Coeff2 = 0;
 	int index = 0;
@@ -227,5 +198,15 @@ float KRProfileSys::GraphValue(int Index, int iEQ) {
 
 		result = (float)A2 / (float)A1 * (float)C2 + Coeff1;
 	}
+	return result;
+}
+
+float KRProfileSys::ResultValue(int Index) {
+	float result = 0.0;
+
+	for (int i = 0; i < Crits.GetSize(); i++) {
+		result += Crits.GetLambda(i) * GraphValue(i, Profiles[Index]->GetValue(i));
+	}
+
 	return result;
 }
