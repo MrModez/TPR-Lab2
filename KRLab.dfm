@@ -23,7 +23,7 @@ object MainForm: TMainForm
   TextHeight = 21
   object GraphPaintBox: TPaintBox
     Left = 383
-    Top = -7
+    Top = 8
     Width = 258
     Height = 241
     Visible = False
@@ -69,11 +69,12 @@ object MainForm: TMainForm
     ParentFont = False
   end
   object VLabel: TLabel
-    Left = 568
+    Left = 594
     Top = 276
     Width = 47
     Height = 21
     Caption = 'VLabel'
+    Visible = False
   end
   object GLabel: TLabel
     Left = 691
@@ -84,7 +85,7 @@ object MainForm: TMainForm
   end
   object Label1: TLabel
     Left = 8
-    Top = 247
+    Top = 255
     Width = 129
     Height = 23
     Caption = #1056#1072#1085#1078#1080#1088#1086#1074#1072#1085#1085#1080#1077
@@ -96,8 +97,8 @@ object MainForm: TMainForm
     ParentFont = False
   end
   object Label2: TLabel
-    Left = 383
-    Top = 247
+    Left = 407
+    Top = 255
     Width = 76
     Height = 23
     Caption = #1056#1077#1079#1091#1083#1100#1090#1072#1090
@@ -108,11 +109,24 @@ object MainForm: TMainForm
     Font.Style = []
     ParentFont = False
   end
-  object StringGrid: TStringGrid
+  object Label3: TLabel
     Left = 8
     Top = 8
+    Width = 143
+    Height = 23
+    Caption = #1048#1089#1093#1086#1076#1085#1099#1077' '#1076#1072#1085#1085#1099#1077
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -17
+    Font.Name = 'Segoe UI'
+    Font.Style = []
+    ParentFont = False
+  end
+  object StringGrid: TStringGrid
+    Left = 8
+    Top = 32
     Width = 369
-    Height = 226
+    Height = 202
     ColCount = 4
     DefaultColWidth = 70
     RowCount = 6
@@ -208,16 +222,17 @@ object MainForm: TMainForm
     OnChange = MValueSpinChange
   end
   object CalcBut: TButton
-    Left = 568
+    Left = 592
     Top = 363
-    Width = 127
+    Width = 103
     Height = 66
     Caption = #1042#1099#1095#1080#1089#1083#1080#1090#1100
     TabOrder = 9
+    Visible = False
     OnClick = CalcButClick
   end
   object RStringGrid: TStringGrid
-    Left = 383
+    Left = 407
     Top = 276
     Width = 179
     Height = 153
@@ -238,7 +253,7 @@ object MainForm: TMainForm
   end
   object LoadBut: TButton
     Left = 8
-    Top = 8
+    Top = 171
     Width = 89
     Height = 65
     Caption = #1047#1072#1075#1088#1091#1079#1080#1090#1100

@@ -80,6 +80,7 @@ void __fastcall TMainForm::LoadButClick(TObject *Sender) {
 	}
 	ShowButClick(this);
 	SubButClick(this);
+	CalcButClick(this);
 	LoadBut->Visible = false;
 }
 
@@ -91,8 +92,8 @@ void __fastcall TMainForm::ShowButClick(TObject *Sender) {
 
 	for (int i = 0; i < Profiles.GetSize(); i++) {
 		StringGrid->Cells[0][i + 1] = Profiles.GetByIndex(i)->Name; // TEST
-		StringGrid->Cells[0][Profiles.GetSize() + 2] = Profiles.GetBest()->Name;
-		StringGrid->Cells[0][Profiles.GetSize() + 1] = Profiles.GetWorst()->Name;
+		StringGrid->Cells[0][Profiles.GetSize() + 2] = "B"; // Profiles.GetBest()->Name;
+		StringGrid->Cells[0][Profiles.GetSize() + 1] = "W"; // Profiles.GetWorst()->Name;
 		for (int j = 0; j < Profiles.Crits.GetSize(); j++) {
 			StringGrid->Cells[j + 1][0] = Profiles.Crits.GetByIndex(j).Name;
 			StringGrid->Cells[j + 1][i + 1] = STR(Profiles.GetByIndex(i)->GetValue(j));
