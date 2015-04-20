@@ -24,6 +24,7 @@ object MainForm: TMainForm
     Top = 8
     Width = 313
     Height = 241
+    Visible = False
     OnClick = GraphPaintBoxClick
     OnPaint = GraphPaintBoxPaint
   end

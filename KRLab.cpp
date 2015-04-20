@@ -44,6 +44,7 @@ void __fastcall TMainForm::StartButClick(TObject *Sender) {
 	KRProfile* Best = new KRProfile("Ëóä", Crits);
 	int CB[] = {1, 100, 1, 2};
 	Best->SetCrits(CB);
+
 	Profiles = KRProfileSys(Worst, Best, Crits);
 
 	KRProfile* Prof1 = new KRProfile("ÌÂÃ", Crits);
@@ -66,6 +67,17 @@ void __fastcall TMainForm::StartButClick(TObject *Sender) {
 	Prof4->SetCrits(C4);
 	Profiles.AddProfile(Prof4);
 
+	ShowButClick(this);
+}
+
+// ---------------------------------------------------------------------------
+void __fastcall TMainForm::LoadButClick(TObject *Sender) {
+	if (DatOpenDialog->Execute()) {
+		TStringList* Dat = new TStringList;
+		Dat->LoadFromFile(DatOpenDialog->FileName);
+		Profiles = KRProfileSys(Dat);
+		delete Dat;
+	}
 	ShowButClick(this);
 }
 
@@ -100,6 +112,7 @@ void __fastcall TMainForm::ShowButClick(TObject *Sender) {
 		AStringGrid->Cells[0][j + 1] = Profiles.Crits.GetByIndex(j).Name;
 	}
 
+	GraphPaintBox->Visible = true;
 	GraphPaintBoxClick(this);
 }
 
@@ -358,21 +371,4 @@ void __fastcall TMainForm::CalcButClick(TObject * Sender) {
 	}
 }
 
-// ---------------------------------------------------------------------------
-void __fastcall TMainForm::LoadButClick(TObject *Sender) {
-	/* if (DatOpenDialog->Execute()) {
-	 TStringList* Dat = new TStringList;
-	 Dat->LoadFromFile(DatOpenDialog->FileName);
-	 int index = 0;
-	 for (int i = 0; i < Dat->Count; i++) {
-	 if (Dat->Names[i] == "x") {
-	 float x = Dat->ValueFromIndex[i].ToDouble();
-	 float y = Dat->ValueFromIndex[i + 1].ToDouble();
-	 index++;
-	 }
-	 }
-	 delete Dat;
-	 }
-	 */
-}
 // ---------------------------------------------------------------------------

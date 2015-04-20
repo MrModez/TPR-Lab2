@@ -37,6 +37,108 @@ KRProfileSys::KRProfileSys(KRProfile *W, KRProfile *B, KRCritSys Crt) {
 	}
 }
 
+KRProfileSys::KRProfileSys(TStringList* Dat) {
+	enum load {
+		none, crits, main, profiles
+	};
+
+	load state = none;
+	Crits = KRCritSys();
+	for (int i = 0; i < Dat->Count; i++) {
+		if (Dat->Strings[i] == "[Crits]")
+			state = crits;
+		if (Dat->Strings[i] == "[Main]")
+			state = main;
+		if (Dat->Strings[i] == "[Profiles]")
+			state = profiles;
+		if (Dat->Names[i] == "name") {
+			KRProfile *Profile;
+			switch (state) {
+			case none:
+				break;
+			case crits:
+				Crits.AddCrit(KRCrit(Dat->ValueFromIndex[i], Dat->ValueFromIndex[i + 1].ToInt()));
+				break;
+			case main:
+				Profile = new KRProfile(Dat->ValueFromIndex[i], Crits);
+				for (int j = 0; j < Crits.GetSize(); j++)
+					Profile->ChangeCrit(j, Dat->ValueFromIndex[i + j + 1].ToInt());
+				if (Dat->ValueFromIndex[i] == "Worst") {
+					Profile->ChangeCoeff(0.0);
+					Worst = Profile;
+				}
+				if (Dat->ValueFromIndex[i] == "Best") {
+					Profile->ChangeCoeff(1.0);
+					Best = Profile;
+				}
+				if (Dat->ValueFromIndex[i] == "A25") {
+					Profile->ChangeCoeff(0.25);
+					A25 = Profile;
+				}
+				if (Dat->ValueFromIndex[i] == "A50") {
+					Profile->ChangeCoeff(0.50);
+					A50 = Profile;
+				}
+				if (Dat->ValueFromIndex[i] == "A75") {
+					Profile->ChangeCoeff(0.75);
+					A75 = Profile;
+				}
+				if (Dat->ValueFromIndex[i] == "AEQ") {
+					Profile->ChangeCoeff(0.0);
+					AEQ = Profile;
+				}
+				break;
+			case profiles:
+				Profile = new KRProfile(Dat->ValueFromIndex[i], Crits);
+				for (int j = 0; j < Crits.GetSize(); j++)
+					Profile->ChangeCrit(j, Dat->ValueFromIndex[i + j + 1].ToInt());
+				AddProfile(Profile);
+				break;
+			default:
+				break;
+			}
+		}
+	}
+
+	/*
+	 Crits = KRCritSys();
+	 Crits.AddCrit(KRCrit("Время решения", 1));
+	 Crits.AddCrit(KRCrit("Точность", 0));
+	 Crits.AddCrit(KRCrit("Устойчивость", 0));
+	 Crits.AddCrit(KRCrit("Память", 1));
+
+	 KRProfile* Worst = new KRProfile("Худ", Crits);
+	 int CW[] = {500, 20, 0, 256};
+	 Worst->SetCrits(CW);
+
+	 KRProfile* Best = new KRProfile("Луд", Crits);
+	 int CB[] = {1, 100, 1, 2};
+	 Best->SetCrits(CB);
+
+	 Profiles = KRProfileSys(Worst, Best, Crits);
+
+	 KRProfile* Prof1 = new KRProfile("МВГ", Crits);
+	 int C[] = {40, 100, 1, 16};
+	 Prof1->SetCrits(C);
+	 Profiles.AddProfile(Prof1);
+
+	 KRProfile* Prof2 = new KRProfile("ГА", Crits);
+	 int C2[] = {8, 85, 1, 32};
+	 Prof2->SetCrits(C2);
+	 Profiles.AddProfile(Prof2);
+
+	 KRProfile* Prof3 = new KRProfile("МБС", Crits);
+	 int C3[] = {20, 70, 0, 64};
+	 Prof3->SetCrits(C3);
+	 Profiles.AddProfile(Prof3);
+
+	 KRProfile* Prof4 = new KRProfile("Пере", Crits);
+	 int C4[] = {120, 100, 1, 128};
+	 Prof4->SetCrits(C4);
+	 Profiles.AddProfile(Prof4);
+	 */
+}
+
 void KRProfileSys::AddProfile(KRProfile *Profile) {
 	Profiles.push_back(Profile);
 }

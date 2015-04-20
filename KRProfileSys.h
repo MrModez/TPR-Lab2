@@ -4,6 +4,7 @@
 #include "KRShared.h"
 #include "KRProfile.h"
 #include "KRCritSys.h"
+#include <System.Classes.hpp>
 
 enum Range {
 	A_NONE, A_WORST, A_25, A_50, A_75, A_BEST, A_EQ
@@ -13,6 +14,7 @@ class KRProfileSys {
 public:
 	KRProfileSys();
 	KRProfileSys(KRProfile *W, KRProfile *B, KRCritSys Crt);
+	KRProfileSys(TStringList* Dat);
 	void AddProfile(KRProfile *Profile);
 	void AddBest(KRProfile *Profile);
 	void AddWorst(KRProfile *Profile);
