@@ -35,15 +35,19 @@ KRProfileSys::KRProfileSys(KRProfile *W, KRProfile *B, KRCritSys Crt) {
 		ChangeSpecial(A_75, i, (Best + (Worst + Best) / 2.0) / 2.0);
 		ChangeSpecial(A_EQ, i, (Worst + Best) / 2.0);
 	}
+	std::vector<int>P;
+	P.resize(Crits.GetSize());
+	Crits.SetPrority(P);
 }
 
 KRProfileSys::KRProfileSys(TStringList* Dat) {
 	enum load {
-		none, crits, main, profiles
+		none, crits, main, profiles, priorities
 	};
 
 	load state = none;
 	Crits = KRCritSys();
+	std::vector<int>P;
 	for (int i = 0; i < Dat->Count; i++) {
 		if (Dat->Strings[i] == "[Crits]")
 			state = crits;
@@ -51,6 +55,8 @@ KRProfileSys::KRProfileSys(TStringList* Dat) {
 			state = main;
 		if (Dat->Strings[i] == "[Profiles]")
 			state = profiles;
+		if (Dat->Strings[i] == "[Priorities]")
+			state = priorities;
 		if (Dat->Names[i] == "name") {
 			KRProfile *Profile;
 			switch (state) {
@@ -93,6 +99,11 @@ KRProfileSys::KRProfileSys(TStringList* Dat) {
 				for (int j = 0; j < Crits.GetSize(); j++)
 					Profile->ChangeCrit(j, Dat->ValueFromIndex[i + j + 1].ToInt());
 				AddProfile(Profile);
+				break;
+			case priorities:
+				for (int j = 0; j < Crits.GetSize(); j++)
+					P.push_back(Dat->ValueFromIndex[i + j + 1].ToInt());
+				Crits.SetPrority(P);
 				break;
 			default:
 				break;

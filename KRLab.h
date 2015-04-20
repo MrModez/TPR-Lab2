@@ -11,6 +11,7 @@
 #include <Vcl.ExtCtrls.hpp>
 #include <Vcl.Samples.Spin.hpp>
 #include <Vcl.Dialogs.hpp>
+#include <Vcl.ComCtrls.hpp>
 #include <vector>
 #include <Direct2D.hpp>
 #include "KRCrit.h"
@@ -28,7 +29,6 @@ __published: // IDE-managed Components
 	TSpinEdit *A25Spin;
 	TSpinEdit *A50Spin;
 	TSpinEdit *A75Spin;
-	TSpinEdit *IndexSpin;
 	TStringGrid *AStringGrid;
 	TButton *SubBut;
 	TSpinEdit *MIndexSpin;
@@ -42,6 +42,10 @@ __published: // IDE-managed Components
 	TButton *StartBut;
 	TButton *LoadBut;
 	TOpenDialog *DatOpenDialog;
+	TUpDown *IndexSpin;
+	TLabel *GLabel;
+	TLabel *Label1;
+	TLabel *Label2;
 
 	void __fastcall FormCreate(TObject *Sender);
 	void __fastcall ShowButClick(TObject *Sender);
@@ -56,6 +60,8 @@ __published: // IDE-managed Components
 	void __fastcall CalcButClick(TObject *Sender);
 	void __fastcall StartButClick(TObject *Sender);
 	void __fastcall LoadButClick(TObject *Sender);
+	void __fastcall IndexSpinMouseUp(TObject *Sender, TMouseButton Button, TShiftState Shift, int X, int Y);
+
 
 
 

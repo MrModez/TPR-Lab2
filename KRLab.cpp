@@ -37,11 +37,11 @@ void __fastcall TMainForm::StartButClick(TObject *Sender) {
 	Crits.AddCrit(KRCrit("Устойчивость", 0));
 	Crits.AddCrit(KRCrit("Память", 1));
 
-	KRProfile* Worst = new KRProfile("Худ", Crits);
+	KRProfile* Worst = new KRProfile("Худш", Crits);
 	int CW[] = {500, 20, 0, 256};
 	Worst->SetCrits(CW);
 
-	KRProfile* Best = new KRProfile("Луд", Crits);
+	KRProfile* Best = new KRProfile("Лучш", Crits);
 	int CB[] = {1, 100, 1, 2};
 	Best->SetCrits(CB);
 
@@ -79,6 +79,8 @@ void __fastcall TMainForm::LoadButClick(TObject *Sender) {
 		delete Dat;
 	}
 	ShowButClick(this);
+	SubButClick(this);
+	LoadBut->Visible = false;
 }
 
 // ---------------------------------------------------------------------------
@@ -101,8 +103,8 @@ void __fastcall TMainForm::ShowButClick(TObject *Sender) {
 	}
 
 	///
-	IndexSpin->MinValue = 0;
-	IndexSpin->MaxValue = Profiles.GetSize() - 1;
+	IndexSpin->Min = 0;
+	IndexSpin->Max = Profiles.GetSize() - 1;
 
 	// AStringGrid
 	AStringGrid->RowCount = Profiles.Crits.GetSize() + 1;
@@ -110,6 +112,7 @@ void __fastcall TMainForm::ShowButClick(TObject *Sender) {
 
 	for (int j = 0; j < Profiles.Crits.GetSize(); j++) {
 		AStringGrid->Cells[0][j + 1] = Profiles.Crits.GetByIndex(j).Name;
+		AStringGrid->Cells[1][j + 1] = Profiles.Crits.GetPriority(j);
 	}
 
 	GraphPaintBox->Visible = true;
@@ -118,7 +121,7 @@ void __fastcall TMainForm::ShowButClick(TObject *Sender) {
 
 // ---------------------------------------------------------------------------
 void __fastcall TMainForm::GraphPaintBoxPaint(TObject * Sender) {
-	int i = IndexSpin->Value;
+	int i = IndexSpin->Position;
 	bool dec = Profiles.Crits.GetByIndex(i).dec;
 	int iBest = Profiles.GetBest()->GetValue(i);
 	int iWorst = Profiles.GetWorst()->GetValue(i);
@@ -224,31 +227,32 @@ void __fastcall TMainForm::GraphPaintBoxPaint(TObject * Sender) {
 
 // ---------------------------------------------------------------------------
 void __fastcall TMainForm::GraphPaintBoxClick(TObject *Sender) {
-	int i = IndexSpin->Value;
+	int i = IndexSpin->Position;
 	A25Spin->Value = Profiles.GetSpecial(A_25)->GetValue(i);
 	A50Spin->Value = Profiles.GetSpecial(A_50)->GetValue(i);
 	A75Spin->Value = Profiles.GetSpecial(A_75)->GetValue(i);
+	GLabel->Caption = Profiles.Crits.GetByIndex(i).Name;
 	GraphPaintBox->Refresh();
 }
 
 // ---------------------------------------------------------------------------
 
 void __fastcall TMainForm::A25SpinChange(TObject * Sender) {
-	int i = IndexSpin->Value;
+	int i = IndexSpin->Position;
 	Profiles.ChangeSpecial(A_25, i, A25Spin->Value);
 	GraphPaintBox->Refresh();
 }
 // ---------------------------------------------------------------------------
 
 void __fastcall TMainForm::A50SpinChange(TObject * Sender) {
-	int i = IndexSpin->Value;
+	int i = IndexSpin->Position;
 	Profiles.ChangeSpecial(A_50, i, A50Spin->Value);
 	GraphPaintBox->Refresh();
 }
 
 // ---------------------------------------------------------------------------
 void __fastcall TMainForm::A75SpinChange(TObject * Sender) {
-	int i = IndexSpin->Value;
+	int i = IndexSpin->Position;
 	Profiles.ChangeSpecial(A_75, i, A75Spin->Value);
 	GraphPaintBox->Refresh();
 }
@@ -261,7 +265,6 @@ void __fastcall TMainForm::SubButClick(TObject *Sender) {
 		for (int j = 0; j < Profiles.Crits.GetSize(); j++) {
 			if (AStringGrid->Cells[1][j + 1] == i) {
 				Priority.push_back(j);
-				break;
 			}
 		}
 	}
@@ -371,4 +374,10 @@ void __fastcall TMainForm::CalcButClick(TObject * Sender) {
 	}
 }
 
+// ---------------------------------------------------------------------------
+
+void __fastcall TMainForm::IndexSpinMouseUp(TObject *Sender, TMouseButton Button, TShiftState Shift,
+	int X, int Y) {
+	GraphPaintBoxClick(this);
+}
 // ---------------------------------------------------------------------------
