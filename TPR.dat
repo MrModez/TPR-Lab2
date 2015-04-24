@@ -61,6 +61,16 @@ a1=120
 a2=100
 a3=1
 a4=128
+name=лкс
+a1=65
+a2=100
+a3=1
+a4=64
+name=лтс
+a1=100
+a2=100
+a3=0
+a4=64
 
 [Priorities]
 name=Priorities

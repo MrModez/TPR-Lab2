@@ -31,7 +31,7 @@ __published: // IDE-managed Components
 	TSpinEdit *A75Spin;
 	TStringGrid *AStringGrid;
 	TButton *SubBut;
-	TSpinEdit *MIndexSpin;
+	TSpinEdit *MIndexSpin0;
 	TLabel *MLabel1;
 	TLabel *MLabel2;
 	TSpinEdit *MValueSpin;
@@ -47,6 +47,9 @@ __published: // IDE-managed Components
 	TLabel *Label1;
 	TLabel *Label2;
 	TLabel *Label3;
+	TUpDown *MIndexSpin;
+	TLabel *MLabel;
+	TLabel *Label4;
 
 	void __fastcall FormCreate(TObject *Sender);
 	void __fastcall ShowButClick(TObject *Sender);
@@ -55,13 +58,20 @@ __published: // IDE-managed Components
 	void __fastcall A50SpinChange(TObject *Sender);
 	void __fastcall A75SpinChange(TObject *Sender);
 	void __fastcall SubButClick(TObject *Sender);
-	void __fastcall MIndexSpinChange(TObject *Sender);
+	void __fastcall MIndexSpin0Change(TObject *Sender);
 	void __fastcall GraphPaintBoxClick(TObject *Sender);
 	void __fastcall MValueSpinChange(TObject *Sender);
 	void __fastcall CalcButClick(TObject *Sender);
 	void __fastcall StartButClick(TObject *Sender);
 	void __fastcall LoadButClick(TObject *Sender);
 	void __fastcall IndexSpinMouseUp(TObject *Sender, TMouseButton Button, TShiftState Shift, int X, int Y);
+	void __fastcall AStringGridKeyUp(TObject *Sender, WORD &Key, TShiftState Shift);
+	void __fastcall RStringGridClick(TObject *Sender);
+	void __fastcall MIndexSpinMouseUp(TObject *Sender, TMouseButton Button, TShiftState Shift, int X, int Y);
+	void __fastcall StringGridKeyUp(TObject *Sender, WORD &Key, TShiftState Shift);
+
+
+
 
 
 

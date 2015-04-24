@@ -4,10 +4,10 @@ object MainForm: TMainForm
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
   Caption = 
-    #1052#1077#1090#1086#1076' '#1087#1088#1077#1076#1087#1086#1095#1090#1077#1085#1080#1081' '#1080' '#1079#1072#1084#1077#1097#1077#1085#1080#1081' '#1050#1080#1085#1080' '#1080' '#1056#1072#1081#1092#1072'. '#1060#1072#1073#1072#1088#1080#1089#1086#1074' '#1047#1072#1075#1080#1088' '#1052#1054'-' +
-    '303'
-  ClientHeight = 471
-  ClientWidth = 712
+    #1052#1077#1090#1086#1076' '#1087#1088#1077#1076#1087#1086#1095#1090#1077#1085#1080#1081' '#1080' '#1079#1072#1084#1077#1097#1077#1085#1080#1081' '#1050#1080#1085#1080' '#1080' '#1056#1072#1081#1092#1072'. '#1060#1072#1073#1072#1088#1080#1089#1086#1074#1099' '#1047#1072#1075#1080#1088' '#1080' ' +
+    #1058#1072#1075#1080#1088' '#1052#1054'-303'
+  ClientHeight = 532
+  ClientWidth = 711
   Color = clBtnFace
   DoubleBuffered = True
   Font.Charset = DEFAULT_CHARSET
@@ -22,9 +22,9 @@ object MainForm: TMainForm
   PixelsPerInch = 96
   TextHeight = 21
   object GraphPaintBox: TPaintBox
-    Left = 383
-    Top = 8
-    Width = 258
+    Left = 392
+    Top = 32
+    Width = 246
     Height = 241
     Visible = False
     OnClick = GraphPaintBoxClick
@@ -32,10 +32,9 @@ object MainForm: TMainForm
   end
   object MLabel1: TLabel
     Left = 224
-    Top = 280
-    Width = 64
+    Top = 355
+    Width = 5
     Height = 23
-    Caption = 'MLabel1'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
     Font.Height = -17
@@ -45,10 +44,9 @@ object MainForm: TMainForm
   end
   object MLabel2: TLabel
     Left = 224
-    Top = 309
-    Width = 64
+    Top = 384
+    Width = 5
     Height = 23
-    Caption = 'MLabel2'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
     Font.Height = -17
@@ -58,9 +56,10 @@ object MainForm: TMainForm
   end
   object QLabel: TLabel
     Left = 8
-    Top = 435
-    Width = 554
+    Top = 502
+    Width = 687
     Height = 23
+    AutoSize = False
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
     Font.Height = -17
@@ -69,8 +68,8 @@ object MainForm: TMainForm
     ParentFont = False
   end
   object VLabel: TLabel
-    Left = 594
-    Top = 276
+    Left = 615
+    Top = 305
     Width = 47
     Height = 21
     Caption = 'VLabel'
@@ -78,17 +77,17 @@ object MainForm: TMainForm
   end
   object GLabel: TLabel
     Left = 691
-    Top = 38
+    Top = 34
     Width = 4
     Height = 21
     Alignment = taRightJustify
   end
   object Label1: TLabel
     Left = 8
-    Top = 255
-    Width = 129
+    Top = 279
+    Width = 119
     Height = 23
-    Caption = #1056#1072#1085#1078#1080#1088#1086#1074#1072#1085#1085#1080#1077
+    Caption = #1056#1072#1085#1078#1080#1088#1086#1074#1072#1085#1080#1077
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
     Font.Height = -17
@@ -97,8 +96,8 @@ object MainForm: TMainForm
     ParentFont = False
   end
   object Label2: TLabel
-    Left = 407
-    Top = 255
+    Left = 415
+    Top = 279
     Width = 76
     Height = 23
     Caption = #1056#1077#1079#1091#1083#1100#1090#1072#1090
@@ -122,19 +121,46 @@ object MainForm: TMainForm
     Font.Style = []
     ParentFont = False
   end
+  object MLabel: TLabel
+    Left = 222
+    Top = 299
+    Width = 5
+    Height = 23
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -17
+    Font.Name = 'Segoe UI'
+    Font.Style = []
+    ParentFont = False
+  end
+  object Label4: TLabel
+    Left = 392
+    Top = 8
+    Width = 135
+    Height = 23
+    Caption = #1043#1088#1072#1092#1080#1082' '#1082#1088#1080#1090#1077#1088#1080#1103
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -17
+    Font.Name = 'Segoe UI'
+    Font.Style = []
+    ParentFont = False
+  end
   object StringGrid: TStringGrid
     Left = 8
     Top = 32
-    Width = 369
-    Height = 202
+    Width = 378
+    Height = 241
     ColCount = 4
-    DefaultColWidth = 70
+    DefaultColWidth = 72
     RowCount = 6
+    Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goRangeSelect, goColSizing, goEditing]
     TabOrder = 0
+    OnKeyUp = StringGridKeyUp
   end
   object ShowBut: TButton
     Left = 312
-    Top = 145
+    Top = 184
     Width = 65
     Height = 41
     Caption = 'ShowBut'
@@ -143,9 +169,9 @@ object MainForm: TMainForm
     OnClick = ShowButClick
   end
   object A25Spin: TSpinEdit
-    Left = 647
+    Left = 639
     Top = 189
-    Width = 53
+    Width = 61
     Height = 31
     MaxValue = 0
     MinValue = 0
@@ -154,9 +180,9 @@ object MainForm: TMainForm
     OnChange = A25SpinChange
   end
   object A50Spin: TSpinEdit
-    Left = 647
+    Left = 639
     Top = 152
-    Width = 53
+    Width = 61
     Height = 31
     MaxValue = 0
     MinValue = 0
@@ -165,9 +191,9 @@ object MainForm: TMainForm
     OnChange = A50SpinChange
   end
   object A75Spin: TSpinEdit
-    Left = 647
+    Left = 639
     Top = 112
-    Width = 53
+    Width = 61
     Height = 31
     MaxValue = 0
     MinValue = 0
@@ -177,21 +203,22 @@ object MainForm: TMainForm
   end
   object AStringGrid: TStringGrid
     Left = 8
-    Top = 276
+    Top = 300
     Width = 201
-    Height = 153
+    Height = 197
     ColCount = 2
     DefaultColWidth = 128
     RowCount = 6
-    Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goRangeSelect, goEditing]
+    Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goRangeSelect, goColSizing, goEditing]
     TabOrder = 5
+    OnKeyUp = AStringGridKeyUp
     ColWidths = (
       128
       56)
   end
   object SubBut: TButton
     Left = 312
-    Top = 192
+    Top = 231
     Width = 65
     Height = 42
     Caption = 'Submit'
@@ -199,20 +226,21 @@ object MainForm: TMainForm
     Visible = False
     OnClick = SubButClick
   end
-  object MIndexSpin: TSpinEdit
-    Left = 224
-    Top = 359
-    Width = 47
+  object MIndexSpin0: TSpinEdit
+    Left = 360
+    Top = 283
+    Width = 17
     Height = 31
     MaxValue = 0
     MinValue = 0
     TabOrder = 7
     Value = 0
-    OnChange = MIndexSpinChange
+    Visible = False
+    OnChange = MIndexSpin0Change
   end
   object MValueSpin: TSpinEdit
-    Left = 284
-    Top = 359
+    Left = 307
+    Top = 320
     Width = 70
     Height = 31
     MaxValue = 0
@@ -222,28 +250,30 @@ object MainForm: TMainForm
     OnChange = MValueSpinChange
   end
   object CalcBut: TButton
-    Left = 592
-    Top = 363
-    Width = 103
-    Height = 66
+    Left = 615
+    Top = 332
+    Width = 80
+    Height = 86
     Caption = #1042#1099#1095#1080#1089#1083#1080#1090#1100
     TabOrder = 9
     Visible = False
     OnClick = CalcButClick
   end
   object RStringGrid: TStringGrid
-    Left = 407
-    Top = 276
-    Width = 179
-    Height = 153
+    Left = 415
+    Top = 299
+    Width = 194
+    Height = 197
     ColCount = 2
-    DefaultColWidth = 70
+    DefaultColWidth = 86
     RowCount = 6
+    Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goRangeSelect, goColSizing]
     TabOrder = 10
+    OnClick = RStringGridClick
   end
   object StartBut: TButton
     Left = 312
-    Top = 92
+    Top = 131
     Width = 65
     Height = 47
     Caption = 'StartBut'
@@ -252,25 +282,37 @@ object MainForm: TMainForm
     OnClick = StartButClick
   end
   object LoadBut: TButton
-    Left = 8
-    Top = 171
-    Width = 89
-    Height = 65
+    Left = 615
+    Top = 424
+    Width = 80
+    Height = 73
     Caption = #1047#1072#1075#1088#1091#1079#1080#1090#1100
     TabOrder = 12
     OnClick = LoadButClick
   end
   object IndexSpin: TUpDown
-    Left = 647
+    Left = 639
     Top = 65
-    Width = 49
+    Width = 57
     Height = 25
+    Max = 0
     Orientation = udHorizontal
     TabOrder = 13
     OnMouseUp = IndexSpinMouseUp
   end
+  object MIndexSpin: TUpDown
+    Left = 224
+    Top = 324
+    Width = 64
+    Height = 25
+    Max = 0
+    Orientation = udHorizontal
+    TabOrder = 14
+    OnMouseUp = MIndexSpinMouseUp
+  end
   object DatOpenDialog: TOpenDialog
+    Filter = 'Data|*.dat'
     Left = 328
-    Top = 248
+    Top = 272
   end
 end

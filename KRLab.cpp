@@ -85,31 +85,48 @@ void __fastcall TMainForm::LoadButClick(TObject *Sender) {
 }
 
 // ---------------------------------------------------------------------------
+void __fastcall TMainForm::StringGridKeyUp(TObject *Sender, WORD &Key, TShiftState Shift) {
+	// StringGrid
+	for (int j = 0; j < Profiles.Crits.GetSize(); j++) {
+		for (int i = 0; i < Profiles.GetSize(); i++) {
+			Profiles.GetByIndex(i)->ChangeCrit(j, INT(StringGrid->Cells[j + 1][i + 1]));
+		}
+		Profiles.GetBest()->ChangeCrit(j, INT(StringGrid->Cells[j + 1][Profiles.GetSize() + 2]));
+		Profiles.GetWorst()->ChangeCrit(j, INT(StringGrid->Cells[j + 1][Profiles.GetSize() + 1]));
+	}
+	SubButClick(this);
+	GraphPaintBoxClick(this);
+}
+
+// ---------------------------------------------------------------------------
 void __fastcall TMainForm::ShowButClick(TObject *Sender) {
 	// qwe
 	StringGrid->RowCount = Profiles.GetSize() + 3;
 	StringGrid->ColCount = Profiles.Crits.GetSize() + 1;
+	AStringGrid->Cells[0][0] = "Метод";
 
-	for (int i = 0; i < Profiles.GetSize(); i++) {
-		StringGrid->Cells[0][i + 1] = Profiles.GetByIndex(i)->Name; // TEST
-		StringGrid->Cells[0][Profiles.GetSize() + 2] = "B"; // Profiles.GetBest()->Name;
-		StringGrid->Cells[0][Profiles.GetSize() + 1] = "W"; // Profiles.GetWorst()->Name;
-		for (int j = 0; j < Profiles.Crits.GetSize(); j++) {
+	for (int j = 0; j < Profiles.Crits.GetSize(); j++) {
+		for (int i = 0; i < Profiles.GetSize(); i++) {
+			StringGrid->Cells[0][i + 1] = Profiles.GetByIndex(i)->Name; // TEST
 			StringGrid->Cells[j + 1][0] = Profiles.Crits.GetByIndex(j).Name;
 			StringGrid->Cells[j + 1][i + 1] = STR(Profiles.GetByIndex(i)->GetValue(j));
-			StringGrid->Cells[j + 1][Profiles.GetSize() + 2] = STR(Profiles.GetBest()->GetValue(j));
-			StringGrid->Cells[j + 1][Profiles.GetSize() + 1] =
-				STR(Profiles.GetWorst()->GetValue(j));
 		}
+		StringGrid->Cells[0][Profiles.GetSize() + 2] = "B"; // Profiles.GetBest()->Name;
+		StringGrid->Cells[0][Profiles.GetSize() + 1] = "W"; // Profiles.GetWorst()->Name;
+		StringGrid->Cells[j + 1][Profiles.GetSize() + 2] = STR(Profiles.GetBest()->GetValue(j));
+		StringGrid->Cells[j + 1][Profiles.GetSize() + 1] = STR(Profiles.GetWorst()->GetValue(j));
 	}
 
 	///
 	IndexSpin->Min = 0;
-	IndexSpin->Max = Profiles.GetSize() - 1;
+	IndexSpin->Max = Profiles.Crits.GetSize() - 1;
+	// ShowMessage(Profiles.GetSize());
 
 	// AStringGrid
 	AStringGrid->RowCount = Profiles.Crits.GetSize() + 1;
 	AStringGrid->ColCount = 2;
+	AStringGrid->Cells[0][0] = "Критерий";
+	AStringGrid->Cells[1][0] = "Приоритет";
 
 	for (int j = 0; j < Profiles.Crits.GetSize(); j++) {
 		AStringGrid->Cells[0][j + 1] = Profiles.Crits.GetByIndex(j).Name;
@@ -287,16 +304,16 @@ void __fastcall TMainForm::SubButClick(TObject *Sender) {
 		Profiles.ChangeSpecial(A_EQ, i, (Worst + Best) / 2.0);
 	}
 
-	MIndexSpin->MinValue = 1;
-	MIndexSpin->MaxValue = Profiles.Crits.GetSize() - 1;
-	MIndexSpin->Value = 1;
-	MIndexSpinChange(this);
+	MIndexSpin->Min = 1;
+	MIndexSpin->Max = Profiles.Crits.GetSize() - 1;
+	MIndexSpin->Position = 1;
+	MIndexSpin0Change(this);
 }
 
 // ---------------------------------------------------------------------------
-void __fastcall TMainForm::MIndexSpinChange(TObject *Sender) {
+void __fastcall TMainForm::MIndexSpin0Change(TObject *Sender) {
 	///
-	int i = Profiles.Crits.GetPriority(MIndexSpin->Value);
+	int i = Profiles.Crits.GetPriority(MIndexSpin->Position);
 	int j = Profiles.Crits.GetPriority(0);
 	if (!Profiles.Crits.GetByIndex(j).dec) {
 		MValueSpin->MinValue = Profiles.GetWorst()->GetValue(j);
@@ -313,10 +330,11 @@ void __fastcall TMainForm::MIndexSpinChange(TObject *Sender) {
 
 // ---------------------------------------------------------------------------
 void __fastcall TMainForm::MValueSpinChange(TObject *Sender) {
-	int j = MIndexSpin->Value;
+	int j = MIndexSpin->Position;
 	int base = Profiles.Crits.GetPriority(0);
 	int index = Profiles.Crits.GetPriority(j);
 	Profiles.ChangeSpecial(A_EQ, index, MValueSpin->Value);
+	MLabel->Caption = Profiles.Crits.GetByPriority(j).Name;
 
 	String Str;
 	int A1 = base; // 2
@@ -368,6 +386,8 @@ void __fastcall TMainForm::CalcButClick(TObject * Sender) {
 
 	RStringGrid->RowCount = Profiles.GetSize() + 1;
 	RStringGrid->ColCount = 2;
+	RStringGrid->Cells[0][0] = "Метод";
+	RStringGrid->Cells[1][0] = "Полезность";
 
 	for (int i = 0; i < Profiles.GetSize(); i++) {
 		RStringGrid->Cells[0][i + 1] = Profiles.GetByIndex(i)->Name;
@@ -381,4 +401,21 @@ void __fastcall TMainForm::IndexSpinMouseUp(TObject *Sender, TMouseButton Button
 	int X, int Y) {
 	GraphPaintBoxClick(this);
 }
+// ---------------------------------------------------------------------------
+
+void __fastcall TMainForm::AStringGridKeyUp(TObject *Sender, WORD &Key, TShiftState Shift) {
+	SubButClick(this);
+}
+
+// ---------------------------------------------------------------------------
+void __fastcall TMainForm::RStringGridClick(TObject *Sender) {
+	CalcButClick(this);
+}
+
+// ---------------------------------------------------------------------------
+void __fastcall TMainForm::MIndexSpinMouseUp(TObject *Sender, TMouseButton Button,
+	TShiftState Shift, int X, int Y) {
+	MIndexSpin0Change(this);
+}
+
 // ---------------------------------------------------------------------------
