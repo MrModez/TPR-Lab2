@@ -26,7 +26,7 @@ __fastcall TMainForm::TMainForm(TComponent* Owner) : TForm(Owner) {
 
 void __fastcall TMainForm::FormCreate(TObject *Sender) {
 	///
-
+	CoverPanel->Width = MainForm->Width;
 }
 
 // --------------------------------------------------------------------------
@@ -77,11 +77,12 @@ void __fastcall TMainForm::LoadButClick(TObject *Sender) {
 		Dat->LoadFromFile(DatOpenDialog->FileName);
 		Profiles = KRProfileSys(Dat);
 		delete Dat;
+		ShowButClick(this);
+		SubButClick(this);
+		CalcButClick(this);
+		LoadBut->Visible = false;
+		CoverPanel->Visible = false;
 	}
-	ShowButClick(this);
-	SubButClick(this);
-	CalcButClick(this);
-	LoadBut->Visible = false;
 }
 
 // ---------------------------------------------------------------------------
@@ -258,6 +259,7 @@ void __fastcall TMainForm::GraphPaintBoxClick(TObject *Sender) {
 void __fastcall TMainForm::A25SpinChange(TObject * Sender) {
 	int i = IndexSpin->Position;
 	Profiles.ChangeSpecial(A_25, i, A25Spin->Value);
+	CalcButClick(this);
 	GraphPaintBox->Refresh();
 }
 // ---------------------------------------------------------------------------
@@ -265,6 +267,7 @@ void __fastcall TMainForm::A25SpinChange(TObject * Sender) {
 void __fastcall TMainForm::A50SpinChange(TObject * Sender) {
 	int i = IndexSpin->Position;
 	Profiles.ChangeSpecial(A_50, i, A50Spin->Value);
+	CalcButClick(this);
 	GraphPaintBox->Refresh();
 }
 
@@ -272,6 +275,7 @@ void __fastcall TMainForm::A50SpinChange(TObject * Sender) {
 void __fastcall TMainForm::A75SpinChange(TObject * Sender) {
 	int i = IndexSpin->Position;
 	Profiles.ChangeSpecial(A_75, i, A75Spin->Value);
+	CalcButClick(this);
 	GraphPaintBox->Refresh();
 }
 
@@ -369,6 +373,7 @@ void __fastcall TMainForm::MValueSpinChange(TObject *Sender) {
 	int value = Profiles.GetSpecial(A_EQ)->GetValue(index);
 	float Res = Profiles.GraphValue(base, value);
 	VLabel->Caption = STRF(Res);
+	CalcButClick(this);
 }
 
 // ---------------------------------------------------------------------------
@@ -418,4 +423,8 @@ void __fastcall TMainForm::MIndexSpinMouseUp(TObject *Sender, TMouseButton Butto
 	MIndexSpin0Change(this);
 }
 
+// ---------------------------------------------------------------------------
+void __fastcall TMainForm::CoverPanelClick(TObject *Sender) {
+	LoadButClick(this);
+}
 // ---------------------------------------------------------------------------

@@ -50,6 +50,8 @@ __published: // IDE-managed Components
 	TUpDown *MIndexSpin;
 	TLabel *MLabel;
 	TLabel *Label4;
+	TPanel *CoverPanel;
+	TLabel *Label5;
 
 	void __fastcall FormCreate(TObject *Sender);
 	void __fastcall ShowButClick(TObject *Sender);
@@ -69,6 +71,7 @@ __published: // IDE-managed Components
 	void __fastcall RStringGridClick(TObject *Sender);
 	void __fastcall MIndexSpinMouseUp(TObject *Sender, TMouseButton Button, TShiftState Shift, int X, int Y);
 	void __fastcall StringGridKeyUp(TObject *Sender, WORD &Key, TShiftState Shift);
+	void __fastcall CoverPanelClick(TObject *Sender);
 
 
 

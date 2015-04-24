@@ -6,8 +6,8 @@ object MainForm: TMainForm
   Caption = 
     #1052#1077#1090#1086#1076' '#1087#1088#1077#1076#1087#1086#1095#1090#1077#1085#1080#1081' '#1080' '#1079#1072#1084#1077#1097#1077#1085#1080#1081' '#1050#1080#1085#1080' '#1080' '#1056#1072#1081#1092#1072'. '#1060#1072#1073#1072#1088#1080#1089#1086#1074#1099' '#1047#1072#1075#1080#1088' '#1080' ' +
     #1058#1072#1075#1080#1088' '#1052#1054'-303'
-  ClientHeight = 532
-  ClientWidth = 711
+  ClientHeight = 527
+  ClientWidth = 716
   Color = clBtnFace
   DoubleBuffered = True
   Font.Charset = DEFAULT_CHARSET
@@ -31,9 +31,9 @@ object MainForm: TMainForm
     OnPaint = GraphPaintBoxPaint
   end
   object MLabel1: TLabel
-    Left = 224
-    Top = 355
-    Width = 5
+    Left = 222
+    Top = 371
+    Width = 35
     Height = 23
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
@@ -43,9 +43,9 @@ object MainForm: TMainForm
     ParentFont = False
   end
   object MLabel2: TLabel
-    Left = 224
-    Top = 384
-    Width = 5
+    Left = 222
+    Top = 400
+    Width = 19
     Height = 23
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
@@ -76,8 +76,8 @@ object MainForm: TMainForm
     Visible = False
   end
   object GLabel: TLabel
-    Left = 691
-    Top = 34
+    Left = 694
+    Top = 13
     Width = 4
     Height = 21
     Alignment = taRightJustify
@@ -123,8 +123,8 @@ object MainForm: TMainForm
   end
   object MLabel: TLabel
     Left = 222
-    Top = 299
-    Width = 5
+    Top = 311
+    Width = 35
     Height = 23
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
@@ -139,6 +139,19 @@ object MainForm: TMainForm
     Width = 135
     Height = 23
     Caption = #1043#1088#1072#1092#1080#1082' '#1082#1088#1080#1090#1077#1088#1080#1103
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -17
+    Font.Name = 'Segoe UI'
+    Font.Style = []
+    ParentFont = False
+  end
+  object Label5: TLabel
+    Left = 222
+    Top = 279
+    Width = 178
+    Height = 23
+    Caption = #1050#1086#1101#1092#1092'-'#1099' '#1073#1077#1079#1088#1072#1079#1083#1080#1095#1080#1103
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
     Font.Height = -17
@@ -169,9 +182,9 @@ object MainForm: TMainForm
     OnClick = ShowButClick
   end
   object A25Spin: TSpinEdit
-    Left = 639
+    Left = 644
     Top = 189
-    Width = 61
+    Width = 56
     Height = 31
     MaxValue = 0
     MinValue = 0
@@ -180,9 +193,9 @@ object MainForm: TMainForm
     OnChange = A25SpinChange
   end
   object A50Spin: TSpinEdit
-    Left = 639
+    Left = 644
     Top = 152
-    Width = 61
+    Width = 56
     Height = 31
     MaxValue = 0
     MinValue = 0
@@ -191,9 +204,9 @@ object MainForm: TMainForm
     OnChange = A50SpinChange
   end
   object A75Spin: TSpinEdit
-    Left = 639
+    Left = 644
     Top = 112
-    Width = 61
+    Width = 56
     Height = 31
     MaxValue = 0
     MinValue = 0
@@ -204,17 +217,14 @@ object MainForm: TMainForm
   object AStringGrid: TStringGrid
     Left = 8
     Top = 300
-    Width = 201
+    Width = 208
     Height = 197
     ColCount = 2
-    DefaultColWidth = 128
+    DefaultColWidth = 100
     RowCount = 6
     Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goRangeSelect, goColSizing, goEditing]
     TabOrder = 5
     OnKeyUp = AStringGridKeyUp
-    ColWidths = (
-      128
-      56)
   end
   object SubBut: TButton
     Left = 312
@@ -227,8 +237,8 @@ object MainForm: TMainForm
     OnClick = SubButClick
   end
   object MIndexSpin0: TSpinEdit
-    Left = 360
-    Top = 283
+    Left = 358
+    Top = 299
     Width = 17
     Height = 31
     MaxValue = 0
@@ -239,8 +249,8 @@ object MainForm: TMainForm
     OnChange = MIndexSpin0Change
   end
   object MValueSpin: TSpinEdit
-    Left = 307
-    Top = 320
+    Left = 305
+    Top = 338
     Width = 70
     Height = 31
     MaxValue = 0
@@ -265,11 +275,18 @@ object MainForm: TMainForm
     Width = 194
     Height = 197
     ColCount = 2
-    DefaultColWidth = 86
+    DefaultColWidth = 92
     RowCount = 6
     Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goRangeSelect, goColSizing]
     TabOrder = 10
     OnClick = RStringGridClick
+    RowHeights = (
+      24
+      24
+      24
+      24
+      24
+      24)
   end
   object StartBut: TButton
     Left = 312
@@ -291,8 +308,8 @@ object MainForm: TMainForm
     OnClick = LoadButClick
   end
   object IndexSpin: TUpDown
-    Left = 639
-    Top = 65
+    Left = 644
+    Top = 40
     Width = 57
     Height = 25
     Max = 0
@@ -301,14 +318,24 @@ object MainForm: TMainForm
     OnMouseUp = IndexSpinMouseUp
   end
   object MIndexSpin: TUpDown
-    Left = 224
-    Top = 324
+    Left = 222
+    Top = 340
     Width = 64
     Height = 25
     Max = 0
     Orientation = udHorizontal
     TabOrder = 14
     OnMouseUp = MIndexSpinMouseUp
+  end
+  object CoverPanel: TPanel
+    Left = 6
+    Top = 8
+    Width = 3
+    Height = 505
+    BevelOuter = bvNone
+    Caption = #1053#1072#1078#1084#1080#1090#1077', '#1095#1090#1086#1073#1099' '#1079#1072#1075#1088#1091#1079#1080#1090#1100' '#1092#1072#1081#1083
+    TabOrder = 15
+    OnClick = CoverPanelClick
   end
   object DatOpenDialog: TOpenDialog
     Filter = 'Data|*.dat'
