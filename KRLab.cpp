@@ -394,9 +394,26 @@ void __fastcall TMainForm::CalcButClick(TObject * Sender) {
 	RStringGrid->Cells[0][0] = "Метод";
 	RStringGrid->Cells[1][0] = "Полезность";
 
+	std::vector<float>result;
+	std::vector<float>resultsort;
 	for (int i = 0; i < Profiles.GetSize(); i++) {
-		RStringGrid->Cells[0][i + 1] = Profiles.GetByIndex(i)->Name;
-		RStringGrid->Cells[1][i + 1] = STRF(Profiles.ResultValue(i));
+		float res = Profiles.ResultValue(i);
+		result.push_back(res);
+		resultsort.push_back(res);
+	}
+	struct {
+		bool operator()(float a, float b) {
+			return a > b;
+		}
+	} customLess;
+	std::sort(resultsort.begin(), resultsort.end(), customLess);
+
+	for (int i = 0; i < Profiles.GetSize(); i++) {
+		for (int j = 0; j < Profiles.GetSize(); j++) {
+			if (result[j] == resultsort[i])
+				RStringGrid->Cells[0][i + 1] = Profiles.GetByIndex(j)->Name;
+		}
+		RStringGrid->Cells[1][i + 1] = STRF(resultsort[i]);
 	}
 }
 

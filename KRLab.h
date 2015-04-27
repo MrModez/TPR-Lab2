@@ -13,6 +13,7 @@
 #include <Vcl.Dialogs.hpp>
 #include <Vcl.ComCtrls.hpp>
 #include <vector>
+#include <algorithm>
 #include <Direct2D.hpp>
 #include "KRCrit.h"
 #include "KRCritSys.h"

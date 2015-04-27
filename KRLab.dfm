@@ -33,7 +33,7 @@ object MainForm: TMainForm
   object MLabel1: TLabel
     Left = 222
     Top = 371
-    Width = 35
+    Width = 5
     Height = 23
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
@@ -45,7 +45,7 @@ object MainForm: TMainForm
   object MLabel2: TLabel
     Left = 222
     Top = 400
-    Width = 19
+    Width = 5
     Height = 23
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
@@ -69,11 +69,10 @@ object MainForm: TMainForm
   end
   object VLabel: TLabel
     Left = 615
-    Top = 305
+    Top = 279
     Width = 47
     Height = 21
     Caption = 'VLabel'
-    Visible = False
   end
   object GLabel: TLabel
     Left = 694
@@ -124,7 +123,7 @@ object MainForm: TMainForm
   object MLabel: TLabel
     Left = 222
     Top = 311
-    Width = 35
+    Width = 5
     Height = 23
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
@@ -162,10 +161,11 @@ object MainForm: TMainForm
   object StringGrid: TStringGrid
     Left = 8
     Top = 32
-    Width = 378
+    Width = 383
     Height = 241
     ColCount = 4
     DefaultColWidth = 72
+    DefaultRowHeight = 20
     RowCount = 6
     Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goRangeSelect, goColSizing, goEditing]
     TabOrder = 0
@@ -276,17 +276,11 @@ object MainForm: TMainForm
     Height = 197
     ColCount = 2
     DefaultColWidth = 92
+    DefaultRowHeight = 20
     RowCount = 6
     Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goRangeSelect, goColSizing]
     TabOrder = 10
     OnClick = RStringGridClick
-    RowHeights = (
-      24
-      24
-      24
-      24
-      24
-      24)
   end
   object StartBut: TButton
     Left = 312
